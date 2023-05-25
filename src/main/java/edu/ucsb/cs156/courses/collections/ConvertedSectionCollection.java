@@ -18,12 +18,12 @@ public interface ConvertedSectionCollection extends MongoRepository<ConvertedSec
     List<ConvertedSection> findByQuarterRangeAndCourseId(
         String startQuarter,
         String endQuarter,
-            String courseId);
-        
-    @Query("{'courseInfo.quarter': {$gte: ?0, $lte: ?1}, 'section.instructors: { '$elemMatch': { 'instructor': { $regex: ?2 }}}}")
+        String courseId );
+
+    @Query("{'courseInfo.quarter': {$gte: ?0, $lte: ?1}, 'section.instructors': { '$elemMatch': { 'instructor': { $regex: ?2 }}}}")
     List<ConvertedSection> findByQuarterRangeAndInstructor(
         String startQuarter,
         String endQuarter,
-            String instructor);
+        String instructor );
     
 }
