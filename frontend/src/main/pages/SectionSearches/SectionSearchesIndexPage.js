@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourseSearchForm";
