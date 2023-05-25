@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@RestController
+@RequestMapping("/api/public/coursebyinstructor")
 public class CourseByInstructorController {
-	private ObjectMapper mapper = new ObjectMapper();
+
+	private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);
+
+    private ObjectMapper mapper = new ObjectMapper();
 
 	@Autowired
 	ConvertedSectionCollection convertedSectionCollection;
