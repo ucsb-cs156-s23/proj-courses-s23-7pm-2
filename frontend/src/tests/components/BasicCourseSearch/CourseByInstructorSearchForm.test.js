@@ -55,6 +55,18 @@ describe("CourseByInstructorSearchForm tests", () => {
     );
   });
 
+  test("renders with proper css attributes", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <CourseByInstructorSearchForm />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+    const submitRow = screen.getByText("Submit").parentElement.parentElement;
+    expect(submitRow).toHaveAttribute("style", "padding-top: 10px; padding-bottom: 10px;")
+  });
+
   test("when I select a start quarter, the state for start quarter changes", () => {
     render(
       <QueryClientProvider client={queryClient}>
