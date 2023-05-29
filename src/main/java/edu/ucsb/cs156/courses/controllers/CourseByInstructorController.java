@@ -5,6 +5,7 @@ import java.util.List;
 import edu.ucsb.cs156.courses.collections.ConvertedSectionCollection;
 import edu.ucsb.cs156.courses.documents.ConvertedSection;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +33,9 @@ public class CourseByInstructorController {
 	@ApiOperation(value = "Get a list of courses by instructor over time")
 	@GetMapping(value = "/search", produces = "application/json")
 	public ResponseEntity<String> search(
-			@RequestParam String startQtr,
-			@RequestParam String endQtr,
-			@RequestParam String instructor
+			@ApiParam(name = "startQtr", type = "String", value = "Start quarter in YYYYQ format", example = "20221", required = true) @RequestParam String startQtr,
+			@ApiParam(name = "endQtr", type = "String", value = "End quarter in YYYYQ format", example = "20222", required = true) @RequestParam String endQtr,
+			@ApiParam(name = "instructor", type = "String", value = "Instructor name", example = "CONRAD P T", required = true) @RequestParam String instructor
 		)throws JsonProcessingException {
 		List<ConvertedSection> courseResults = convertedSectionCollection.findByQuarterRangeAndInstructor(
 				startQtr,
