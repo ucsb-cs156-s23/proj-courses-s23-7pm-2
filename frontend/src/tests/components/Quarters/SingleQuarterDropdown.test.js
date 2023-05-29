@@ -22,38 +22,105 @@ describe("SingleQuarterSelector tests", () => {
     const quarter = jest.fn();
     const setQuarter = jest.fn();
 
-    test("renders without crashing on one quarter", () => {
+    test("correctly renders a single quarter (no local storage, only one item to select)", async () => {
+
+        // Mock condition that local storage returns null for any key
+        jest.spyOn(Storage.prototype, 'getItem');
+        Storage.prototype.getItem = jest.fn().mockImplementation(() => null);
+
         render(<SingleQuarterDropdown
             quarters={quarterRange("20211", "20211")}
             quarter={quarter}
             setQuarter={setQuarter}
             controlId="sqd1"
         />);
+        await waitFor(
+            () => expect(screen.getByText("W21")).toBeInTheDocument()
+        );
+        expect(screen.getAllByRole('option').length).toBe(1);
+        expect(screen.getByLabelText("Quarter")).toHaveValue("20211");
     });
 
-    test("renders without crashing on three quarters", () => {
+    test("correctly renders four quarters (no local storage, so first item selected)", async () => {
+
+        // Mock condition that local storage returns null for any key
+        jest.spyOn(Storage.prototype, 'getItem');
+        Storage.prototype.getItem = jest.fn().mockImplementation(() => null);
+
         render(<SingleQuarterDropdown
-            quarters={quarterRange("20214", "20222")}
+            quarters={quarterRange("20213", "20222")}
             quarter={quarter}
             setQuarter={setQuarter}
             controlId="sqd1"
         />);
+        await waitFor(
+            () => expect(screen.getByText("M21")).toBeInTheDocument()
+        );
+        expect(screen.getByText("F21")).toBeInTheDocument();
+        expect(screen.getByText("W22")).toBeInTheDocument();
+        expect(screen.getByText("S22")).toBeInTheDocument();
+        expect(screen.getAllByRole('option').length).toBe(4);
+        expect(screen.getByLabelText("Quarter")).toHaveValue("20213"); // M21
     });
 
-    test("when I select an object, the value changes", async () => {
-        render(
-            <SingleQuarterDropdown
-                quarters={quarterRange("20211", "20222")}
-                quarter={quarter}
-                setQuarter={setQuarter}
-                controlId="sqd1"
-                label="Select Quarter"
-            />
+    test("correctly selects the correct item from localstorage", async () => {
+
+        // Mock condition that local storage maps key sqd1 to 20221 (W22)
+        jest.spyOn(Storage.prototype, 'getItem');
+        Storage.prototype.getItem = jest.fn().mockImplementation((key) => {
+            const items = { "sqd1": "20221" }
+            if (key in items) { return items[key]; }
+            throw new Error(`Unexpected key ${key}`);
+        });
+
+        render(<SingleQuarterDropdown
+            quarters={quarterRange("20213", "20222")}
+            quarter={quarter}
+            setQuarter={setQuarter}
+            controlId="sqd1"
+        />);
+        await waitFor(
+            () => expect(screen.getByText("M21")).toBeInTheDocument()
         );
-        expect(await screen.findByLabelText("Select Quarter")).toBeInTheDocument();
-        const selectQuarter = screen.getByLabelText("Select Quarter")
-        userEvent.selectOptions(selectQuarter, "20213");
-        expect(setQuarter).toBeCalledWith("20213");
+        expect(screen.getByText("F21")).toBeInTheDocument();
+        expect(screen.getByText("W22")).toBeInTheDocument();
+        expect(screen.getByText("S22")).toBeInTheDocument();
+        expect(screen.getAllByRole('option').length).toBe(4);
+        expect(screen.getByLabelText("Quarter")).toHaveValue("20221"); // W22
+    });
+
+    test("User selecting a new item has intended effect", async () => {
+
+        // Mock condition that local storage maps key sqd1 to 20221 (W22)
+        jest.spyOn(Storage.prototype, 'getItem');
+        Storage.prototype.getItem = jest.fn().mockImplementation((key) => {
+            const items = { "sqd1": "20221" }
+            if (key in items) { return items[key]; }
+            throw new Error(`Unexpected key ${key}`);
+        });
+
+        render(<SingleQuarterDropdown
+            quarters={quarterRange("20213", "20222")}
+            quarter={quarter}
+            setQuarter={setQuarter}
+            controlId="sqd1"
+        />);
+        await waitFor(
+            () => expect(screen.getByText("M21")).toBeInTheDocument()
+        );
+        expect(screen.getByText("F21")).toBeInTheDocument();
+        expect(screen.getByText("W22")).toBeInTheDocument();
+        expect(screen.getByText("S22")).toBeInTheDocument();
+        expect(screen.getAllByRole('option').length).toBe(4);
+        expect(screen.getByLabelText("Quarter")).toHaveValue("20221"); // W22
+
+        // User selects F21
+        const selectQuarter = screen.getByLabelText("Quarter")
+        userEvent.selectOptions(selectQuarter, "20214");
+        await (waitFor(
+            () => expect(setQuarter).toBeCalledWith("20214")
+        ));
+        expect(screen.getByLabelText("Quarter")).toHaveValue("20214");
     });
 
     test("if I pass a non-null onChange, it gets called when the value changes", async () => {
@@ -78,71 +145,5 @@ describe("SingleQuarterSelector tests", () => {
         // x.mock.calls[0][0] is the first argument of the first call to the jest.fn() mock x
         const event = onChange.mock.calls[0][0];
         expect(event.target.value).toBe("20213");
-    });
-
-    test("default label is Quarter", async () => {
-        render(
-            <SingleQuarterDropdown
-                quarters={quarterRange("20211", "20222")}
-                quarter={quarter}
-                setQuarter={setQuarter}
-                controlId="sqd1"
-            />
-        );
-
-        expect(await screen.findByLabelText("Quarter")).toBeInTheDocument();
-    });
-
-    test("keys / testids are set correctly on options", async () => {
-        render(
-            <SingleQuarterDropdown
-                quarters={quarterRange("20211", "20222")}
-                quarter={quarter}
-                setQuarter={setQuarter}
-                controlId="sqd1"
-            />
-        );
-
-        const expectedKey = "sqd1-option-20211";
-        expect(await screen.findByTestId(expectedKey)).toBeInTheDocument();
-    });
-
-    test("when localstorage has a value, it is passed to useState and selected", async () => {
-        const getItemSpy = jest.spyOn(Storage.prototype, 'getItem');
-        getItemSpy.mockImplementation(() => "20202");
-
-        const setQuarterStateSpy = jest.fn();
-        useState.mockImplementation((x)=>[x, setQuarterStateSpy]);
-
-        render(
-            <SingleQuarterDropdown
-                quarters={quarterRange("20201", "20224")}
-                quarter={quarter}
-                setQuarter={setQuarter}
-                controlId="sqd1"
-            />
-        );
-
-        await waitFor(() => expect(useState).toBeCalledWith("20202"));
-        expect(await screen.findByLabelText("Quarter")).toHaveValue("20202");
-    });
-
-    test("when localstorage has no value, first element of quarter range is passed to useState", async () => {
-        const getItemSpy = jest.spyOn(Storage.prototype, 'getItem');
-        getItemSpy.mockImplementation(() => null);
-
-        const setQuarterStateSpy = jest.fn();
-        useState.mockImplementation((x)=>[x, setQuarterStateSpy]);
-
-        render(
-            <SingleQuarterDropdown
-                quarters={quarterRange("20201", "20224")}
-                quarter={quarter}
-                setQuarter={setQuarter}
-                controlId="sqd1"
-            />
-        );
-
-        await waitFor(() => expect(useState).toBeCalledWith("20201"));
     });
 });

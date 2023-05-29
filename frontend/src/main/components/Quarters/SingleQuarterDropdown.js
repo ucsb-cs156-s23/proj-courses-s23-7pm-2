@@ -49,7 +49,6 @@ function SingleQuarterDropdown({ quarters, setQuarter, controlId, onChange = nul
                             key={key}
                             data-testid={key}
                             value={object.yyyyq}
-                            selected={object.yyyyq === quarterState}
                         >
                             {object.qyy}
                         </option>
