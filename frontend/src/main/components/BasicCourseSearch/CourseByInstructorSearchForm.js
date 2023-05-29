@@ -17,6 +17,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
   // initialized from localStorage; both default to the first
   // quarter in the range
 
+
   const quarterRangeFirst = systemInfo.startQtrYYYYQ || "20211";
   const quarterRangeLast = systemInfo.endQtrYYYYQ || "20214";
 
@@ -41,6 +42,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
   };
 
   const testid="CourseByInstructorSearchForm";
+
   return (
     <Form onSubmit={handleSubmit}>
       <Container>

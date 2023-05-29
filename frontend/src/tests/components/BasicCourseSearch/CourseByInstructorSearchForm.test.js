@@ -72,6 +72,8 @@ describe("CourseByInstructorSearchForm tests", () => {
         throw new Error(`Unexpected key ${key}`);
     });
     
+
+  test("renders with proper css attributes", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -87,8 +89,9 @@ describe("CourseByInstructorSearchForm tests", () => {
       expect(screen.getByLabelText("Start Quarter").value).toBe("20202");
     });
 
-    expect(screen.getByLabelText("End Quarter").value).toBe("20203");
-    expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("CONRAD P T");
+    
+    const submitRow = screen.getByText("Submit").parentElement.parentElement;
+    expect(submitRow).toHaveAttribute("style", "padding-top: 10px; padding-bottom: 10px;")
   });
 
 
@@ -105,6 +108,11 @@ describe("CourseByInstructorSearchForm tests", () => {
       "endQtrYYYYQ": null  // use fallback value
     });
 
+    expect(screen.getByLabelText("End Quarter").value).toBe("20203");
+    expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("CONRAD P T");
+  });
+
+  test("when I select a start quarter, the state for start quarter changes", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
