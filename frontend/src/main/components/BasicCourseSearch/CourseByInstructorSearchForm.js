@@ -9,18 +9,27 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
 
   const { data: systemInfo } = useSystemInfo();
 
-  const startQtr = systemInfo.startQtrYYYYQ || "20211";
-  const endQtr = systemInfo.endQtrYYYYQ || "20214";
+  // Note that we need to distinguish between the first and last
+  // quarters of the quarter range shown in the dropdowns, vs. 
+  // the selected start and end quarters for the search.
+  // The first and last quarters of the range are determined by
+  // quarterRangeFirst and quarterRangeLast, which are set in
+  // systemInfo.json.  The selected start and end quarters are
+  // initialized from localStorage; both default to the first
+  // quarter in the range
 
-  const quarters = quarterRange(startQtr, endQtr);
+  const quarterRangeFirst = systemInfo.startQtrYYYYQ || "20211";
+  const quarterRangeLast = systemInfo.endQtrYYYYQ || "20214";
 
-  const localStartQuarter = localStorage.getItem("CourseByInstructorSearch.StartQuarter");
-  const localEndQuarter = localStorage.getItem("CourseByInstructorSearch.EndQuarter");
-  const localInstructor = localStorage.getItem("CourseByInstructorSearch.Instructor");
+  const quarters = quarterRange(quarterRangeFirst, quarterRangeLast);
 
-  const [startQuarter, setStartQuarter] = useState(localStartQuarter || quarters[0].yyyyq);
-  const [endQuarter, setEndQuarter] = useState(localEndQuarter || quarters[0].yyyyq);
-  const [instructor, setInstructor] = useState(localInstructor || "");
+  const localStorageInstructor = localStorage.getItem("CourseByInstructorSearch.Instructor");
+
+  const initialInstructor = localStorageInstructor || "";
+  
+  const [startQuarter, setStartQuarter] = useState(quarters[0].yyyyq);
+  const [endQuarter, setEndQuarter] = useState(quarters[0].yyyyq);
+  const [instructor, setInstructor] = useState(initialInstructor);
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -107,7 +107,7 @@ describe("SingleQuarterSelector tests", () => {
         expect(await screen.findByTestId(expectedKey)).toBeInTheDocument();
     });
 
-    test("when localstorage has a value, it is passed to useState", async () => {
+    test("when localstorage has a value, it is passed to useState and selected", async () => {
         const getItemSpy = jest.spyOn(Storage.prototype, 'getItem');
         getItemSpy.mockImplementation(() => "20202");
 
@@ -124,6 +124,7 @@ describe("SingleQuarterSelector tests", () => {
         );
 
         await waitFor(() => expect(useState).toBeCalledWith("20202"));
+        expect(await screen.findByLabelText("Quarter")).toHaveValue("20202");
     });
 
     test("when localstorage has no value, first element of quarter range is passed to useState", async () => {
