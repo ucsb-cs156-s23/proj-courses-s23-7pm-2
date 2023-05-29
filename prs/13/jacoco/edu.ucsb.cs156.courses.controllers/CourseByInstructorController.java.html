@@ -5,6 +5,7 @@ import java.util.List;
 import edu.ucsb.cs156.courses.collections.ConvertedSectionCollection;
 import edu.ucsb.cs156.courses.documents.ConvertedSection;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +21,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(&quot;/api/public/coursebyinstructor&quot;)
-<span class="fc" id="L23">public class CourseByInstructorController {</span>
+<span class="fc" id="L24">public class CourseByInstructorController {</span>
 
-<span class="fc" id="L25">	private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);</span>
+<span class="fc" id="L26">	private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);</span>
 
-<span class="fc" id="L27">    private ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L28">    private ObjectMapper mapper = new ObjectMapper();</span>
 
 	@Autowired
 	ConvertedSectionCollection convertedSectionCollection;
@@ -32,16 +33,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 	@ApiOperation(value = &quot;Get a list of courses by instructor over time&quot;)
 	@GetMapping(value = &quot;/search&quot;, produces = &quot;application/json&quot;)
 	public ResponseEntity&lt;String&gt; search(
-			@RequestParam String startQtr,
-			@RequestParam String endQtr,
-			@RequestParam String instructor
+			@ApiParam(name = &quot;startQtr&quot;, type = &quot;String&quot;, value = &quot;Start quarter in YYYYQ format&quot;, example = &quot;20221&quot;, required = true) @RequestParam String startQtr,
+			@ApiParam(name = &quot;endQtr&quot;, type = &quot;String&quot;, value = &quot;End quarter in YYYYQ format&quot;, example = &quot;20222&quot;, required = true) @RequestParam String endQtr,
+			@ApiParam(name = &quot;instructor&quot;, type = &quot;String&quot;, value = &quot;Instructor name&quot;, example = &quot;CONRAD P T&quot;, required = true) @RequestParam String instructor
 		)throws JsonProcessingException {
-<span class="fc" id="L39">		List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndInstructor(</span>
+<span class="fc" id="L40">		List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndInstructor(</span>
 				startQtr,
 				endQtr,
 				instructor);
-<span class="fc" id="L43">		String body = mapper.writeValueAsString(courseResults);</span>
-<span class="fc" id="L44">		return ResponseEntity.ok().body(body);</span>
+<span class="fc" id="L44">		String body = mapper.writeValueAsString(courseResults);</span>
+<span class="fc" id="L45">		return ResponseEntity.ok().body(body);</span>
 	}
 
 }
