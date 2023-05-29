@@ -3,19 +3,17 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { quarterRange } from "main/utils/quarterUtilities";
 import { useSystemInfo } from "main/utils/systemInfo";
 import SingleQuarterDropdown from "../Quarters/SingleQuarterDropdown";
+import { start } from "@storybook/builder-webpack5";
 
 const CourseByInstructorSearchForm = ({ fetchJSON }) => {
 
   const { data: systemInfo } = useSystemInfo();
 
-  // Stryker disable OptionalChaining
-  const startQtr = systemInfo?.startQtrYYYYQ || "20211";
-  const endQtr = systemInfo?.endQtrYYYYQ || "20214";
-  // Stryker enable OptionalChaining
+  const startQtr = systemInfo.startQtrYYYYQ || "20211";
+  const endQtr = systemInfo.endQtrYYYYQ || "20214";
 
   const quarters = quarterRange(startQtr, endQtr);
 
-  // Stryker disable all : not sure how to test/mock local storage
   const localStartQuarter = localStorage.getItem("CourseByInstructorSearch.StartQuarter");
   const localEndQuarter = localStorage.getItem("CourseByInstructorSearch.EndQuarter");
   const localInstructor = localStorage.getItem("CourseByInstructorSearch.Instructor");
@@ -23,7 +21,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
   const [startQuarter, setStartQuarter] = useState(localStartQuarter || quarters[0].yyyyq);
   const [endQuarter, setEndQuarter] = useState(localEndQuarter || quarters[0].yyyyq);
   const [instructor, setInstructor] = useState(localInstructor || "");
-    
+
   const handleSubmit = (event) => {
     event.preventDefault();
     fetchJSON(event, { startQuarter, endQuarter, instructor });
@@ -31,9 +29,10 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
 
   const handleInstructorOnChange = (event) => {
     setInstructor(event.target.value);
+    localStorage.setItem("CourseByInstructorSearch.Instructor", event.target.value);
   };
 
-  // Stryker disable all : Stryker is testing by changing the padding to 0. But this is simply a visual optimization as it makes it look better
+  const testid="CourseByInstructorSearchForm";
   return (
     <Form onSubmit={handleSubmit}>
       <Container>
@@ -61,7 +60,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
             <Form.Control onChange={handleInstructorOnChange} defaultValue={instructor} />
           </Form.Group>
         </Row>
-        <Row style={{ paddingTop: 10, paddingBottom: 10 }}>
+        <Row data-testid={`${testid}-data-row`} style={{ paddingTop: 10, paddingBottom: 10 }}>
           <Col md="auto">
             <Button variant="primary" type="submit">
               Submit

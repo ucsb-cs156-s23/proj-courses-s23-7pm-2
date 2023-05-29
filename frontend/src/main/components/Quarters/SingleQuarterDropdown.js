@@ -39,14 +39,16 @@ function SingleQuarterDropdown({ quarters, setQuarter, controlId, onChange = nul
                 as="select"
                 value={quarterState}
                 onChange={handleQuarterOnChange}
+                data-testid={`${controlId}-select`}
             >
-                {quarters.map(function (object, i) {
-                    const key=`${controlId}-option-${i}`;
+                {quarters.map(function (object) {
+                    const key=`${controlId}-option-${object.yyyyq}`;
                     return (
                         <option
                             key={key}
                             data-testid={key}
                             value={object.yyyyq}
+                            selected={object.yyyyq === quarterState}
                         >
                             {object.qyy}
                         </option>

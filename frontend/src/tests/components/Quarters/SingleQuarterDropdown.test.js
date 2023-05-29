@@ -103,7 +103,7 @@ describe("SingleQuarterSelector tests", () => {
             />
         );
 
-        const expectedKey = "sqd1-option-0";
+        const expectedKey = "sqd1-option-20211";
         expect(await screen.findByTestId(expectedKey)).toBeInTheDocument();
     });
 
