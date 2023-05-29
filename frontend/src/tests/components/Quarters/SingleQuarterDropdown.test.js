@@ -34,9 +34,7 @@ describe("SingleQuarterSelector tests", () => {
             setQuarter={setQuarter}
             controlId="sqd1"
         />);
-        await waitFor(
-            () => expect(screen.getByText("W21")).toBeInTheDocument()
-        );
+        await screen.findByText("W21");
         expect(screen.getAllByRole('option').length).toBe(1);
         expect(screen.getByLabelText("Quarter")).toHaveValue("20211");
     });
@@ -53,9 +51,7 @@ describe("SingleQuarterSelector tests", () => {
             setQuarter={setQuarter}
             controlId="sqd1"
         />);
-        await waitFor(
-            () => expect(screen.getByText("M21")).toBeInTheDocument()
-        );
+        await screen.findByText("M21");
         expect(screen.getByText("F21")).toBeInTheDocument();
         expect(screen.getByText("W22")).toBeInTheDocument();
         expect(screen.getByText("S22")).toBeInTheDocument();
@@ -79,9 +75,7 @@ describe("SingleQuarterSelector tests", () => {
             setQuarter={setQuarter}
             controlId="sqd1"
         />);
-        await waitFor(
-            () => expect(screen.getByText("M21")).toBeInTheDocument()
-        );
+        await screen.findByText("M21");
         expect(screen.getByText("F21")).toBeInTheDocument();
         expect(screen.getByText("W22")).toBeInTheDocument();
         expect(screen.getByText("S22")).toBeInTheDocument();
@@ -105,9 +99,7 @@ describe("SingleQuarterSelector tests", () => {
             setQuarter={setQuarter}
             controlId="sqd1"
         />);
-        await waitFor(
-            () => expect(screen.getByText("M21")).toBeInTheDocument()
-        );
+        await screen.findByText("M21");
         expect(screen.getByText("F21")).toBeInTheDocument();
         expect(screen.getByText("W22")).toBeInTheDocument();
         expect(screen.getByText("S22")).toBeInTheDocument();

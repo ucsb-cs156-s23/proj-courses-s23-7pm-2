@@ -94,7 +94,7 @@ describe("CourseByInstructorSearchForm tests", () => {
 
   test("no values in local storage and no values from /api/systemInfo", async () => {
     jest.spyOn(Storage.prototype, 'getItem');
-    Storage.prototype.getItem = jest.fn().mockImplementation((key) => null);
+    Storage.prototype.getItem = jest.fn().mockImplementation((_key) => null);
      
     axiosMock
     .onGet("/api/systemInfo")
