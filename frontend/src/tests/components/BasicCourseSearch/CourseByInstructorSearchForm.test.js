@@ -58,22 +58,21 @@ describe("CourseByInstructorSearchForm tests", () => {
     expect(row).toHaveAttribute("style", "padding-top: 10px; padding-bottom: 10px;");
   });
 
+
+
+
   test("gets values from local storage", async () => {
     jest.spyOn(Storage.prototype, 'getItem');
     Storage.prototype.getItem = jest.fn().mockImplementation((key) => {
       const items = {
-        "CourseByInstructorSearch.StartQuarter": "20202",
-        "CourseByInstructorSearch.EndQuarter": "20203",
+        "CourseByInstructorSearch.StartQuarter": "20202", // accessed by SingleQuarterDropdown
+        "CourseByInstructorSearch.EndQuarter": "20203", // accessed by SingleQuarterDropdown
         "CourseByInstructorSearch.Instructor": "CONRAD P T"
       }
-      if (key in items) 
-        return items[key];
-      else
-        throw new Error(`Unexpected key ${key}`);
+      if (key in items) return items[key];
+      throw new Error(`Unexpected key ${key}`);
     });
-    
 
-  test("renders with proper css attributes", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -84,12 +83,12 @@ describe("CourseByInstructorSearchForm tests", () => {
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.StartQuarter')
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.EndQuarter')
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.Instructor')
-    
+
     await waitFor(() => {
       expect(screen.getByLabelText("Start Quarter").value).toBe("20202");
     });
 
-    
+
     const submitRow = screen.getByText("Submit").parentElement.parentElement;
     expect(submitRow).toHaveAttribute("style", "padding-top: 10px; padding-bottom: 10px;")
   });
@@ -98,21 +97,16 @@ describe("CourseByInstructorSearchForm tests", () => {
   test("no values in local storage and no values from /api/systemInfo", async () => {
     jest.spyOn(Storage.prototype, 'getItem');
     Storage.prototype.getItem = jest.fn().mockImplementation((_key) => null);
-     
+
     axiosMock
-    .onGet("/api/systemInfo")
-    .reply(200, {
-      "springH2ConsoleEnabled": false,
-      "showSwaggerUILink": false,
-      "startQtrYYYYQ": null, // use fallback value
-      "endQtrYYYYQ": null  // use fallback value
-    });
+      .onGet("/api/systemInfo")
+      .reply(200, {
+        "springH2ConsoleEnabled": false,
+        "showSwaggerUILink": false,
+        "startQtrYYYYQ": null, // use fallback value
+        "endQtrYYYYQ": null  // use fallback value
+      });
 
-    expect(screen.getByLabelText("End Quarter").value).toBe("20203");
-    expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("CONRAD P T");
-  });
-
-  test("when I select a start quarter, the state for start quarter changes", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -120,15 +114,8 @@ describe("CourseByInstructorSearchForm tests", () => {
         </MemoryRouter>
       </QueryClientProvider>
     );
-    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.StartQuarter')
-    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.EndQuarter')
-    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.Instructor')
-    
-    await waitFor(() => {
-      expect(screen.getByLabelText("Start Quarter").value).toBe("20211");
-    });
 
-    expect(screen.getByLabelText("End Quarter").value).toBe("20211");
+    expect(screen.getByLabelText("End Quarter").value).toBe("20201");
     expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("");
   });
 
@@ -145,6 +132,19 @@ describe("CourseByInstructorSearchForm tests", () => {
     await waitFor(() => {
       expect(screen.getByTestId("CourseByInstructorSearch.StartQuarter-option-20202")).toBeInTheDocument();
     });
+
+    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.StartQuarter')
+    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.EndQuarter')
+    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.Instructor')
+
+    await waitFor(() => {
+      expect(screen.getByLabelText("Start Quarter").value).toBe("20211");
+    });
+
+    expect(screen.getByTestId("CourseByInstructorSearch.StartQuarter-option-20202")).toBeInTheDocument();
+
+    expect(screen.getByLabelText("End Quarter").value).toBe("20211");
+    expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("");
 
     const selectStartQuarter = screen.getByLabelText("Start Quarter");
     userEvent.selectOptions(selectStartQuarter, "20202");
@@ -176,14 +176,11 @@ describe("CourseByInstructorSearchForm tests", () => {
     const selectInstructor = screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')");
     userEvent.type(selectInstructor, "CONRAD P T");
     expect(selectInstructor.value).toBe("CONRAD P T");
-    expect(localStorage.setItem).toBeCalledWith('CourseByInstructorSearch.Instructor',"CONRAD P T")
+    expect(localStorage.setItem).toBeCalledWith('CourseByInstructorSearch.Instructor', "CONRAD P T")
   });
 
   test("when I click submit, the right stuff happens", async () => {
-    const sampleReturnValue = {
-      sampleKey: "sampleValue",
-    };
-
+    const sampleReturnValue = { sampleKey: "sampleValue" };
     const fetchJSONSpy = jest.fn();
 
     fetchJSONSpy.mockResolvedValue(sampleReturnValue);
@@ -220,11 +217,7 @@ describe("CourseByInstructorSearchForm tests", () => {
   });
 
   test("when I click submit when JSON is EMPTY, setCourse is not called!", async () => {
-    const sampleReturnValue = {
-      sampleKey: "sampleValue",
-      total: 0,
-    };
-
+    const sampleReturnValue = { sampleKey: "sampleValue", total: 0 };
     const fetchJSONSpy = jest.fn();
 
     fetchJSONSpy.mockResolvedValue(sampleReturnValue);
@@ -246,7 +239,6 @@ describe("CourseByInstructorSearchForm tests", () => {
     const submitButton = screen.getByText("Submit");
     userEvent.click(submitButton);
   });
-
 
   test("renders without crashing when fallback values are used", async () => {
 
