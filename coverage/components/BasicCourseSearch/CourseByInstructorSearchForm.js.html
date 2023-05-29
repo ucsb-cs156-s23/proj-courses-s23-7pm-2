@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -139,7 +139,15 @@
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,36 +155,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">101x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
-<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
-<span class="cline-any cline-yes">51x</span>
-<span class="cline-any cline-yes">51x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
-<span class="cline-any cline-yes">51x</span>
-<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">101x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-yes">101x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,28 +234,34 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { quarterRange } from "main/utils/quarterUtilities";
 import { useSystemInfo } from "main/utils/systemInfo";
 import SingleQuarterDropdown from "../Quarters/SingleQuarterDropdown";
+import { start } from "@storybook/builder-webpack5";
 &nbsp;
 const CourseByInstructorSearchForm = ({ fetchJSON }) =&gt; {
 &nbsp;
   const { data: systemInfo } = useSystemInfo();
 &nbsp;
-  // Stryker disable OptionalChaining
-  const startQtr = systemInfo?.startQtrYYYYQ || "20211";
-  const endQtr = systemInfo?.endQtrYYYYQ || "20214";
-  // Stryker restore OptionalChaining
+  // Note that we need to distinguish between the first and last
+  // quarters of the quarter range shown in the dropdowns, vs. 
+  // the selected start and end quarters for the search.
+  // The first and last quarters of the range are determined by
+  // quarterRangeFirst and quarterRangeLast, which are set in
+  // systemInfo.json.  The selected start and end quarters are
+  // initialized from localStorage; both default to the first
+  // quarter in the range
 &nbsp;
-  const quarters = quarterRange(startQtr, endQtr);
+  const quarterRangeFirst = systemInfo.startQtrYYYYQ || "20211";
+  const quarterRangeLast = systemInfo.endQtrYYYYQ || "20214";
 &nbsp;
-  // Stryker disable all : not sure how to test/mock local storage
-  const localStartQuarter = localStorage.getItem("CourseByInstructorSearch.StartQuarter");
-  const localEndQuarter = localStorage.getItem("CourseByInstructorSearch.EndQuarter");
-  const localInstructor = localStorage.getItem("CourseByInstructorSearch.Instructor");
+  const quarters = quarterRange(quarterRangeFirst, quarterRangeLast);
 &nbsp;
-  const [startQuarter, setStartQuarter] = useState(localStartQuarter || quarters[0].yyyyq);
-  const [endQuarter, setEndQuarter] = useState(localEndQuarter || quarters[0].yyyyq);
-  const [instructor, setInstructor] = useState(localInstructor || "");
-  // Stryker restore all
-    
+  const localStorageInstructor = localStorage.getItem("CourseByInstructorSearch.Instructor");
+&nbsp;
+  const initialInstructor = localStorageInstructor || "";
+  
+  const [startQuarter, setStartQuarter] = useState(quarters[0].yyyyq);
+  const [endQuarter, setEndQuarter] = useState(quarters[0].yyyyq);
+  const [instructor, setInstructor] = useState(initialInstructor);
+&nbsp;
   const handleSubmit = (event) =&gt; {
     event.preventDefault();
     fetchJSON(event, { startQuarter, endQuarter, instructor });
@@ -249,9 +269,10 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) =&gt; {
 &nbsp;
   const handleInstructorOnChange = (event) =&gt; {
     setInstructor(event.target.value);
+    localStorage.setItem("CourseByInstructorSearch.Instructor", event.target.value);
   };
 &nbsp;
-&nbsp;
+  const testid="CourseByInstructorSearchForm";
   return (
     &lt;Form onSubmit={handleSubmit}&gt;
       &lt;Container&gt;
@@ -279,7 +300,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) =&gt; {
             &lt;Form.Control onChange={handleInstructorOnChange} defaultValue={instructor} /&gt;
           &lt;/Form.Group&gt;
         &lt;/Row&gt;
-        &lt;Row style={{ paddingTop: 10, paddingBottom: 10 }}&gt;
+        &lt;Row data-testid={`${testid}-data-row`} style={{ paddingTop: 10, paddingBottom: 10 }}&gt;
           &lt;Col md="auto"&gt;
             &lt;Button variant="primary" type="submit"&gt;
               Submit
@@ -298,7 +319,7 @@ export default CourseByInstructorSearchForm;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun May 28 2023 18:41:30 GMT-0700 (Pacific Daylight Time)
+                at Mon May 29 2023 11:15:33 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
