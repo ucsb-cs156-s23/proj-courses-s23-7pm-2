@@ -58,9 +58,6 @@ describe("CourseByInstructorSearchForm tests", () => {
     expect(row).toHaveAttribute("style", "padding-top: 10px; padding-bottom: 10px;");
   });
 
-
-
-
   test("gets values from local storage", async () => {
     jest.spyOn(Storage.prototype, 'getItem');
     Storage.prototype.getItem = jest.fn().mockImplementation((key) => {
@@ -87,10 +84,14 @@ describe("CourseByInstructorSearchForm tests", () => {
     await waitFor(() => {
       expect(screen.getByLabelText("Start Quarter").value).toBe("20202");
     });
+    expect(screen.getByLabelText("End Quarter").value).toBe("20203");
+    expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("CONRAD P T");
 
 
     const submitRow = screen.getByText("Submit").parentElement.parentElement;
     expect(submitRow).toHaveAttribute("style", "padding-top: 10px; padding-bottom: 10px;")
+
+
   });
 
 
@@ -240,7 +241,7 @@ describe("CourseByInstructorSearchForm tests", () => {
     userEvent.click(submitButton);
   });
 
-  test("renders without crashing when fallback values are used", async () => {
+  test("renders when fallback values are used", async () => {
 
     axiosMock
       .onGet("/api/systemInfo")
