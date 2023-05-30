@@ -15,7 +15,7 @@ function getCourseId(courseIds) {
 export default function SectionsOverTimeTable({ sections }) {
 
 
-    // Stryker enable all 
+    // Stryker restore all 
     // Stryker disable BooleanLiteral
     const columns = [
         {
