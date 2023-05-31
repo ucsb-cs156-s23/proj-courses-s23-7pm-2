@@ -52,8 +52,8 @@ describe("UpdateCoursesJobForm tests", () => {
     );
 
     // Make sure the first and last options 
-    expect(await screen.findByTestId(/BasicSearch.Quarter-option-0/)).toHaveValue("20211")
-    expect(await screen.findByTestId(/BasicSearch.Quarter-option-3/)).toHaveValue("20214")
+    expect(await screen.findByTestId(/BasicSearch.Quarter-option-20211/)).toHaveValue("20211")
+    expect(await screen.findByTestId(/BasicSearch.Quarter-option-20214/)).toHaveValue("20214")
 
   });
 
