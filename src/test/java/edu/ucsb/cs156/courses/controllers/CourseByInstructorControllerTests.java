@@ -47,7 +47,7 @@ public class CourseByInstructorControllerTests {
     @Test
     public void test_search_emptyRequest() throws Exception {
         List<ConvertedSection> expectedResult = new ArrayList<ConvertedSection>();
-        String urlTemplate = "/api/public/coursebyinstructor/search?startQtr=%s&endQtr=%s&instructor=%s";
+        String urlTemplate = "/api/public/coursebyinstructor/search?startQtr=%s&endQtr=%s&instructor=%s&functionCode=%s";
 
         String url = String.format(urlTemplate, "20222", "20212", "CONRAD P T", "Teaching and in charge");
 
@@ -92,7 +92,7 @@ public class CourseByInstructorControllerTests {
                 .section(section2)
                 .build();
 
-        String urlTemplate = "/api/public/coursebyinstructor/search?startQtr=%s&endQtr=%s&instructor=%s";
+        String urlTemplate = "/api/public/coursebyinstructor/search?startQtr=%s&endQtr=%s&instructor=%s&functionCode=%s";
 
         String url = String.format(urlTemplate, "20222", "20222", "CONRAD P T", "Teaching and in charge");
 
