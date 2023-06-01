@@ -46,7 +46,7 @@ describe("Search by Instructor Page tests", () => {
       .onGet("/api/UCSBSubjects/all")
       .reply(200, allTheSubjects);
     axiosMock
-      .onGet("/api/sections/basicsearch")
+      .onGet("/api/instructor/search")
       .reply(200, oneSection);
 
     render(
