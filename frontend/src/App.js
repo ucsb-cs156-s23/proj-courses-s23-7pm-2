@@ -56,7 +56,7 @@ function App() {
             </>
           )
         }
-        <Route exact path="/professor/search" element={<SearchByInstructorPage />} />
+        <Route exact path="/instructor/search" element={<SearchByInstructorPage />} />
         <Route exact path="/coursedescriptions/search" element={<CourseDescriptionIndexPage />} />
         <Route exact path="/courseovertime/search" element={<CourseOverTimeIndexPage />} />
       </Routes>

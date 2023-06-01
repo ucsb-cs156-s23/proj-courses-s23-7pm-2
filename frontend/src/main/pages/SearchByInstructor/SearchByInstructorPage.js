@@ -8,11 +8,12 @@ export default function CourseDescriptionIndexPage() {
   const [courseJSON, setCourseJSON] = useState([]);
 
   const objectToAxiosParams = (query) => ({
-    url: "/api/public/basicsearch",
+    url: "/api/public/instructor/search",
     params: {
       qtr: query.quarter,
       dept: query.subject,
-      level: query.level,
+      subjectArea: query.subject,
+      courseNumber: query.courseNumber + query.courseSuf,
       instructor: query.instructor,
     },
   });
@@ -24,6 +25,7 @@ export default function CourseDescriptionIndexPage() {
   const mutation = useBackendMutation(
     objectToAxiosParams,
     { onSuccess },
+    // Stryker disable next-line all : hard to set up test for caching
     []
   );
 

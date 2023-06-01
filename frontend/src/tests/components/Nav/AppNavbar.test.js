@@ -252,12 +252,12 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        expect(await screen.findByTestId("appnavbar-professor-dropdown")).toBeInTheDocument();
-        const dropdown = screen.getByTestId("appnavbar-professor-dropdown");
+        expect(await screen.findByTestId("appnavbar-instructor-dropdown")).toBeInTheDocument();
+        const dropdown = screen.getByTestId("appnavbar-instructor-dropdown");
         const aElement = dropdown.querySelector("a");
         expect(aElement).toBeInTheDocument();
         aElement?.click();  
 
-        expect(await screen.findByTestId("appnavbar-professor-search")).toBeInTheDocument();
+        expect(await screen.findByTestId("appnavbar-instructor-search")).toBeInTheDocument();
     });
 });
