@@ -18,7 +18,7 @@ export default function CourseDescriptionIndexPage() {
   });
 
   const onSuccess = (courses) => {
-    setCourseJSON(courses.classes);
+    setCourseJSON(courses);
   };
 
   const mutation = useBackendMutation(
