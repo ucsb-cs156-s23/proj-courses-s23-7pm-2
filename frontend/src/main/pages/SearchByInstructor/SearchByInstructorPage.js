@@ -13,6 +13,7 @@ export default function CourseDescriptionIndexPage() {
       qtr: query.quarter,
       dept: query.subject,
       level: query.level,
+      instructor: query.instructor,
     },
   });
 

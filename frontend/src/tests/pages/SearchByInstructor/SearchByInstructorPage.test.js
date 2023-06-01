@@ -1,15 +1,11 @@
-// import { render, screen, waitFor } from "@testing-library/react";
-import { render} from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-// import userEvent from "@testing-library/user-event";
-// import { allTheSubjects } from "fixtures/subjectFixtures";
-// import { oneSection } from "fixtures/sectionFixtures";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import SearchByInstructorPage from 'main/pages/SearchByInstructor/SearchByInstructorPage';
+import SearchByInstructorPage from "main/pages/SearchByInstructor/SearchByInstructorPage";
 
 const mockToast = jest.fn();
 jest.mock("react-toastify", () => {
@@ -45,47 +41,40 @@ describe("Search by Instructor Page tests", () => {
     );
   });
 
-//   test("calls UCSB section search api correctly with 1 section response", async () => {
-//     axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
-//     axiosMock
-//       .onGet("/api/sections/basicsearch")
-//       .reply(200, oneSection);
+  test("calls UCSB section search API correctly with 1 section response", async () => {
+    axiosMock
+      .onGet("/api/UCSBSubjects/all")
+      .reply(200, allTheSubjects);
+    axiosMock
+      .onGet("/api/sections/basicsearch")
+      .reply(200, oneSection);
 
-//     render(
-//       <QueryClientProvider client={queryClient}>
-//         <MemoryRouter>
-//           <SectionSearchesIndexPage />
-//         </MemoryRouter>
-//       </QueryClientProvider>
-//     );
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <SearchByInstructorPage />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
 
-//     const selectQuarter = screen.getByLabelText("Quarter");
-//     userEvent.selectOptions(selectQuarter, "20222");
-//     const selectSubject = screen.getByLabelText("Subject Area");
+    // Update the following section to use CourseByInstructorSearchForm
+    const instructorInput = screen.getByLabelText("Instructor");
+    userEvent.type(instructorInput, "Conrad");
 
-//     const expectedKey = "BasicSearch.Subject-option-ANTH";
-//     await waitFor(() => expect(screen.getByTestId(expectedKey).toBeInTheDocument));
-    
-//     userEvent.selectOptions(selectSubject, "ANTH");
-//     const selectLevel = screen.getByLabelText("Course Level");
-//     userEvent.selectOptions(selectLevel, "G");
+    const submitButton = screen.getByText("Submit");
+    expect(submitButton).toBeInTheDocument();
+    userEvent.click(submitButton);
 
-//     const submitButton = screen.getByText("Submit");
-//     expect(submitButton).toBeInTheDocument();
-//     userEvent.click(submitButton);
+    axiosMock.resetHistory();
 
-//     axiosMock.resetHistory();
+    await waitFor(() => {
+      expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
+    });
 
-//     await waitFor(() => {
-//       expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
-//     });
+    expect(axiosMock.history.get[0].params).toEqual({
+      instructor: "Conrad",
+    });
 
-//     expect(axiosMock.history.get[0].params).toEqual({
-//       qtr: "20222",
-//       dept: "ANTH",
-//       level: "G",
-//     });
-
-//     expect(screen.getByText("ECE 1A")).toBeInTheDocument();
-//   });
+    expect(screen.getByText("Conrad")).toBeInTheDocument();
+  });
 });
