@@ -15,7 +15,7 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
     } = useForm(
         { defaultValues: initialCourse || {}, }
     );
-    // Stryker enable all
+    // Stryker restore all
 
     const navigate = useNavigate();
 

@@ -32,6 +32,8 @@ function SingleQuarterDropdown({ quarters, setQuarter, controlId, onChange = nul
         }
     };
 
+    setQuarter(quarterState); // set the parent state to the initial value
+
     return (
         <Form.Group controlId={controlId}>
             <Form.Label>{label}</Form.Label>
@@ -40,8 +42,8 @@ function SingleQuarterDropdown({ quarters, setQuarter, controlId, onChange = nul
                 value={quarterState}
                 onChange={handleQuarterOnChange}
             >
-                {quarters.map(function (object, i) {
-                    const key=`${controlId}-option-${i}`;
+                {quarters.map(function (object) {
+                    const key=`${controlId}-option-${object.yyyyq}`;
                     return (
                         <option
                             key={key}
