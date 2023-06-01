@@ -48,59 +48,60 @@ public class CourseByInstructorControllerTests {
     public void test_search_emptyRequest() throws Exception {
         List<ConvertedSection> expectedResult = new ArrayList<ConvertedSection>();
         String urlTemplate = "/api/public/coursebyinstructor/search?startQtr=%s&endQtr=%s&instructor=%s";
-        
-        String url = String.format(urlTemplate, "20222", "20212", "CONRAD P T");
+
+        String url = String.format(urlTemplate, "20222", "20212", "CONRAD P T", "Teaching and in charge");
 
         // mock
-        when(convertedSectionCollection.findByQuarterRangeAndInstructor(any(String.class), any(String.class), any(String.class)))
-            .thenReturn(expectedResult);
+        when(convertedSectionCollection.findByQuarterRangeAndInstructor(any(String.class), any(String.class),
+                any(String.class), any(String.class)))
+                .thenReturn(expectedResult);
 
         // act
         MvcResult response = mockMvc.perform(
-            get(url).contentType("application/json")
-        ).andExpect(
-            status().isOk()
-        ).andReturn();
-
+                get(url).contentType("application/json")).andExpect(
+                        status().isOk())
+                .andReturn();
 
         // assert
         String responseString = response.getResponse().getContentAsString();
         String expectedString = mapper.writeValueAsString(expectedResult);
-        
+
         assertEquals(expectedString, responseString);
     }
 
-    @Test public void test_search_validRequest() throws Exception {
+    @Test
+    public void test_search_validRequest() throws Exception {
         CourseInfo info = CourseInfo.builder()
-            .quarter("20222")
-            .courseId("CMPSC   24 -1")
-            .title("OBJ ORIENTED DESIGN")
-            .description("Intro to object oriented design")
-            .build();
-        
+                .quarter("20222")
+                .courseId("CMPSC   24 -1")
+                .title("OBJ ORIENTED DESIGN")
+                .description("Intro to object oriented design")
+                .build();
+
         Section section1 = new Section();
 
         Section section2 = new Section();
 
         ConvertedSection cs1 = ConvertedSection.builder()
-            .courseInfo(info)
-            .section(section1)
-            .build();
-        
+                .courseInfo(info)
+                .section(section1)
+                .build();
+
         ConvertedSection cs2 = ConvertedSection.builder()
-            .courseInfo(info)
-            .section(section2)
-            .build();
+                .courseInfo(info)
+                .section(section2)
+                .build();
 
         String urlTemplate = "/api/public/coursebyinstructor/search?startQtr=%s&endQtr=%s&instructor=%s";
-    
-        String url = String.format(urlTemplate, "20222", "20222", "CONRAD P T");
+
+        String url = String.format(urlTemplate, "20222", "20222", "CONRAD P T", "Teaching and in charge");
 
         List<ConvertedSection> expectedSecs = new ArrayList<ConvertedSection>();
         expectedSecs.addAll(Arrays.asList(cs1, cs2));
 
         // mock
-        when(convertedSectionCollection.findByQuarterRangeAndInstructor(any(String.class), any(String.class), eq("CONRAD P T"))).thenReturn(expectedSecs);
+        when(convertedSectionCollection.findByQuarterRangeAndInstructor(any(String.class), any(String.class),
+                eq("CONRAD P T"), eq("Teaching and in charge"))).thenReturn(expectedSecs);
 
         // act
         MvcResult response = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
