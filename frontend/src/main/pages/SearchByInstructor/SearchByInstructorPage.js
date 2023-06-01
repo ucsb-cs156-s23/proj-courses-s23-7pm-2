@@ -10,10 +10,8 @@ export default function CourseDescriptionIndexPage() {
   const objectToAxiosParams = (query) => ({
     url: "/api/public/coursebyinstructor/search",
     params: {
-      qtr: query.quarter,
-      dept: query.subject,
-      subjectArea: query.subject,
-      courseNumber: query.courseNumber + query.courseSuf,
+      startQtr: query.startQuarter,
+      endQtr: query.endQuarter,
       instructor: query.instructor,
     },
   });
