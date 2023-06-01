@@ -16,7 +16,6 @@
         "!src/main/**/*_NoStryker.{js,jsx,ts,tsx}"
     ],
     "tempDirName": "strykerTmp",
-
-
+    "incremental": true,
     "thresholds": { "high": 100, "low": 90, "break": 100 }
 }
