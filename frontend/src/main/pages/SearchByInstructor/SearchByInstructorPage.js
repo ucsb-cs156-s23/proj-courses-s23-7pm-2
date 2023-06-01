@@ -8,7 +8,7 @@ export default function CourseDescriptionIndexPage() {
   const [courseJSON, setCourseJSON] = useState([]);
 
   const objectToAxiosParams = (query) => ({
-    url: "/api/public/instructor/search",
+    url: "/api/public/coursebyinstructor/search",
     params: {
       qtr: query.quarter,
       dept: query.subject,

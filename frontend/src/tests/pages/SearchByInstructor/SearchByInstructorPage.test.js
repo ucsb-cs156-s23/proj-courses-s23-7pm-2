@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +6,7 @@ import AxiosMockAdapter from "axios-mock-adapter";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import SearchByInstructorPage from "main/pages/SearchByInstructor/SearchByInstructorPage";
+import { oneSection } from "fixtures/sectionFixtures";
 
 const mockToast = jest.fn();
 jest.mock("react-toastify", () => {
@@ -43,10 +44,7 @@ describe("Search by Instructor Page tests", () => {
 
   test("calls UCSB section search API correctly with 1 section response", async () => {
     axiosMock
-      .onGet("/api/UCSBSubjects/all")
-      .reply(200, allTheSubjects);
-    axiosMock
-      .onGet("/api/instructor/search")
+      .onGet("/api/public/coursebyinstructor")
       .reply(200, oneSection);
 
     render(
@@ -58,7 +56,7 @@ describe("Search by Instructor Page tests", () => {
     );
 
     // Update the following section to use CourseByInstructorSearchForm
-    const instructorInput = screen.getByLabelText("Instructor");
+    const instructorInput = screen.getByLabelText("instructor");
     userEvent.type(instructorInput, "Conrad");
 
     const submitButton = screen.getByText("Submit");
