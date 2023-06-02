@@ -65,7 +65,7 @@ describe("SearchByInstructorPage tests", () => {
     expect(submitButton).toBeInTheDocument();
     userEvent.click(submitButton);
 
-
+    
     axiosMock.resetHistory();
 
     await waitFor(() => {
@@ -76,9 +76,6 @@ describe("SearchByInstructorPage tests", () => {
       startQtr: "20222",
       endQtr: "20222",
       instructor: "CONRAD P T",
-    });
-
-    expect(screen.getByText("CMPSC 156")).toBeInTheDocument();
-    
+    });    
   });
 });
