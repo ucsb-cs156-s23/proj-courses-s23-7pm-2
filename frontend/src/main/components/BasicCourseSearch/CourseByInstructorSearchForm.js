@@ -78,7 +78,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
             <Form.Control onChange={handleInstructorOnChange} defaultValue={instructor} />
           </Form.Group>
           <Form.Group controlId="CourseByInstructorSearch.Checkbox">
-            <FormCheck type="checkbox" label="Lectures Only" onChange={handleCheckboxOnChange} checked={checkbox}></FormCheck>
+            <FormCheck data-testid={`${testid}-checkbox`} label="Lectures Only" onChange={handleCheckboxOnChange} checked={checkbox}></FormCheck>
           </Form.Group>
         </Row>
         <Row data-testid={`${testid}-data-row`} style={{ paddingTop: 10, paddingBottom: 10 }}>
