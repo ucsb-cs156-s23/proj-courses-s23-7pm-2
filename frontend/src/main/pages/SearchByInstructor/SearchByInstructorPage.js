@@ -18,7 +18,6 @@ export default function SearchByInstructorPage() {
 
   const onSuccess = (courses) => {
     setCourseJSON(courses);
-    console.log(courses);
   };
 
   const mutation = useBackendMutation(
@@ -41,4 +40,5 @@ export default function SearchByInstructorPage() {
       </div>
     </BasicLayout>
   );
+  
 }

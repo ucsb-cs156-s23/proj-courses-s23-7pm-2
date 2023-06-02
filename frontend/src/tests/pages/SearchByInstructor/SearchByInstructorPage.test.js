@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import userEvent from "@testing-library/user-event";
+import { threeSections } from "fixtures/sectionFixtures";
 
 import SearchByInstructorPage from "main/pages/SearchByInstructor/SearchByInstructorPage";
 
@@ -42,7 +43,7 @@ describe("SearchByInstructorPage tests", () => {
   test("calls course by instructor search API correctly", async () => {
     axiosMock
         .onGet("/api/public/coursebyinstructor/search")
-        .reply(200, { courses: [] });
+        .reply(200, threeSections);
 
     render(
         <QueryClientProvider client={queryClient}>
@@ -66,7 +67,10 @@ describe("SearchByInstructorPage tests", () => {
     userEvent.click(submitButton);
 
     
+    
+
     axiosMock.resetHistory();
+    
 
     await waitFor(() => {
       expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
@@ -77,5 +81,6 @@ describe("SearchByInstructorPage tests", () => {
       endQtr: "20222",
       instructor: "CONRAD P T",
     });    
+    expect(screen.getByText("ECE 1A")).toBeInTheDocument();
   });
 });
