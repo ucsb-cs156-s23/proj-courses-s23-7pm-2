@@ -36,7 +36,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetchJSON(event, { startQuarter, endQuarter, instructor });
+    fetchJSON(event, { startQuarter, endQuarter, instructor, checkbox });
   };
 
   const handleInstructorOnChange = (event) => {
