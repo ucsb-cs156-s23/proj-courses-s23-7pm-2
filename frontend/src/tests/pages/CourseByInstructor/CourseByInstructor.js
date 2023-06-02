@@ -6,7 +6,7 @@ import AxiosMockAdapter from "axios-mock-adapter";
 import userEvent from "@testing-library/user-event";
 import { threeSections } from "fixtures/sectionFixtures";
 
-import SearchByInstructorPage from "main/pages/SearchByInstructor/SearchByInstructorPage";
+import CourseByInstructor from "main/pages/CourseByInstructor/CourseByInstructor";
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -18,7 +18,7 @@ jest.mock('react-toastify', () => {
     };
 });
 
-describe("SearchByInstructorPage tests", () => {
+describe("CourseByInstructor tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
   beforeEach(() => {
@@ -34,7 +34,7 @@ describe("SearchByInstructorPage tests", () => {
       render(
           <QueryClientProvider client={queryClient}>
               <MemoryRouter>
-                  <SearchByInstructorPage />
+                  <CourseByInstructor />
               </MemoryRouter>
           </QueryClientProvider>
       );
@@ -48,7 +48,7 @@ describe("SearchByInstructorPage tests", () => {
     render(
         <QueryClientProvider client={queryClient}>
             <MemoryRouter>
-                <SearchByInstructorPage />
+                <CourseByInstructor />
             </MemoryRouter>
         </QueryClientProvider>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchByInstructorPage from 'main/pages/SearchByInstructor/SearchByInstructorPage';
+import SearchByInstructorPage from 'main/pages/CourseByInstructor/CourseByInstructor';
 
 export default {
     title: 'pages/SearchByInstructor/SearchByInstructorPage',

@@ -22,7 +22,7 @@ import CoursesCreatePage from "main/pages/Courses/PSCourseCreatePage";
 
 import CourseOverTimeIndexPage from "main/pages/CourseOverTime/CourseOverTimeIndexPage";
 
-import SearchByInstructorPage from "main/pages/SearchByInstructor/SearchByInstructorPage"
+import SearchByInstructorPage from "main/pages/CourseByInstructor/CourseByInstructor"
 function App() {
 
   const { data: currentUser } = useCurrentUser();
