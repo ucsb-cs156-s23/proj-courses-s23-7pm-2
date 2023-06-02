@@ -27,7 +27,6 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
   const localStorageCheckbox = localStorage.getItem("CourseByInstructorSearch.Checkbox");
 
   const initialInstructor = localStorageInstructor || "";
-  console.log(initialCheckbox);
   const initialCheckbox = localStorageCheckbox || false;
 
   const [startQuarter, setStartQuarter] = useState(quarters[0].yyyyq);
