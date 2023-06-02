@@ -20,10 +20,6 @@ export default function BasicCourseTable({ courses }) {
             accessor: 'title',
         },
         {
-            Header: 'Instructor',
-            accessor: 'instructor',
-        },
-        {
             Header: 'Description',
             accessor: 'description',
         },

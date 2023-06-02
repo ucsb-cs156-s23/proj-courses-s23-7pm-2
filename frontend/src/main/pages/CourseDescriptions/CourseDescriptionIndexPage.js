@@ -18,10 +18,10 @@ export default function CourseDescriptionIndexPage() {
   });
 
   const onSuccess = (courses) => {
-    setCourseJSON(courses);
+    setCourseJSON(courses.classes);
   };
 
-  const mutation = useBackendMutation(
+  const mutation = useBackendMutation( //Frontend should not be using backend mutation change later it should just be use backend
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching

@@ -4,7 +4,7 @@ import CourseByInstructorSearchForm from "main/components/BasicCourseSearch/Cour
 import BasicCourseTable from "main/components/Courses/BasicCourseTable";
 import { useBackendMutation } from "main/utils/useBackend";
 
-export default function CourseDescriptionIndexPage() {
+export default function SearchByInstructorPage() {
   const [courseJSON, setCourseJSON] = useState([]);
 
   const objectToAxiosParams = (query) => ({
@@ -18,6 +18,7 @@ export default function CourseDescriptionIndexPage() {
 
   const onSuccess = (courses) => {
     setCourseJSON(courses.classes);
+    console.log('Here is the log: ', courses);
   };
 
   const mutation = useBackendMutation(
