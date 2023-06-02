@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import CourseByInstructorSearchForm from "main/components/BasicCourseSearch/CourseByInstructorSearchForm";
-import BasicCourseTable from "main/components/Courses/BasicCourseTable";
+import SectionsOverTimeTable from "main/components/Sections/SectionsOverTimeTable";
 import { useBackendMutation } from "main/utils/useBackend";
 
 export default function SearchByInstructorPage() {
@@ -17,8 +17,7 @@ export default function SearchByInstructorPage() {
   });
 
   const onSuccess = (courses) => {
-    setCourseJSON(courses.classes);
-    console.log('Here is the log: ', courses);
+    setCourseJSON(courses);
   };
 
   const mutation = useBackendMutation(
@@ -37,7 +36,7 @@ export default function SearchByInstructorPage() {
       <div className="pt-2">
         <h5>Welcome to the UCSB Courses Description Search!</h5>
         <CourseByInstructorSearchForm fetchJSON={fetchBasicCourseJSON} />
-        <BasicCourseTable courses={courseJSON} />
+        <SectionsOverTimeTable sections={courseJSON} />
       </div>
     </BasicLayout>
   );

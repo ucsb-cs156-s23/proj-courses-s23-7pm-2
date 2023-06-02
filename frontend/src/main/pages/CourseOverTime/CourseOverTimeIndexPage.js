@@ -19,7 +19,7 @@ export default function CourseOverTimeIndexPage() {
   });
 
   const onSuccess = (courses) => {
-    setCourseJSON(courses.classes);
+    setCourseJSON(courses);
   };
 
   const mutation = useBackendMutation(
