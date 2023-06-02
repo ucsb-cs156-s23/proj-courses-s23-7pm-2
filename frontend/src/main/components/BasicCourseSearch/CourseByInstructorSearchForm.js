@@ -24,19 +24,20 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
   const quarters = quarterRange(quarterRangeFirst, quarterRangeLast);
 
   const localStorageInstructor = localStorage.getItem("CourseByInstructorSearch.Instructor");
-  const localStorageCheckbox = localStorage.getItem("CourseByInstructorSearch.Checkbox") === "true";
+  const localStorageFunctionCode = localStorage.getItem("CourseByInstructorSearch.FunctionCode");
 
   const initialInstructor = localStorageInstructor || "";
-  const initialCheckbox = localStorageCheckbox || false;
+  const initialFunctionCode = localStorageFunctionCode || "";
 
   const [startQuarter, setStartQuarter] = useState(quarters[0].yyyyq);
   const [endQuarter, setEndQuarter] = useState(quarters[0].yyyyq);
   const [instructor, setInstructor] = useState(initialInstructor);
-  const [checkbox, setCheckbox] = useState(initialCheckbox);
+  const [checkbox, setCheckbox] = useState(initialFunctionCode === "Teaching and in charge");
+  const [FunctionCode] = useState(initialFunctionCode);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetchJSON(event, { startQuarter, endQuarter, instructor });
+    fetchJSON(event, { startQuarter, endQuarter, instructor, FunctionCode });
   };
 
   const handleInstructorOnChange = (event) => {
@@ -44,9 +45,9 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
     localStorage.setItem("CourseByInstructorSearch.Instructor", event.target.value);
   };
 
-  const handleCheckboxOnChange = (event) => {
-    setCheckbox(event.target.checked);
-    localStorage.setItem("CourseByInstructorSearch.Checkbox", event.target.checked.toString());
+  const handleCheckboxOnChange = () => {
+    setCheckbox(!checkbox);
+    checkbox ? localStorage.setItem("CourseByInstructorSearch.FunctionCode", "Teaching and in charge") : localStorage.setItem("CourseByInstructorSearch.FunctionCode", "");
   };
 
   const testid = "CourseByInstructorSearchForm";

@@ -65,7 +65,7 @@ describe("CourseByInstructorSearchForm tests", () => {
         "CourseByInstructorSearch.StartQuarter": "20202", // accessed by SingleQuarterDropdown
         "CourseByInstructorSearch.EndQuarter": "20203", // accessed by SingleQuarterDropdown
         "CourseByInstructorSearch.Instructor": "CONRAD P T",
-        "CourseByInstructorSearch.Checkbox": "false"
+        "CourseByInstructorSearch.FunctionCode": ""
       }
       if (key in items) return items[key];
       throw new Error(`Unexpected key ${key}`);
@@ -81,7 +81,7 @@ describe("CourseByInstructorSearchForm tests", () => {
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.StartQuarter')
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.EndQuarter')
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.Instructor')
-    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.Checkbox')
+    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.FunctionCode')
 
     await waitFor(() => {
       expect(screen.getByLabelText("Start Quarter").value).toBe("20202");
@@ -141,7 +141,7 @@ describe("CourseByInstructorSearchForm tests", () => {
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.StartQuarter')
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.EndQuarter')
     expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.Instructor')
-    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.Checkbox')
+    expect(localStorage.getItem).toBeCalledWith('CourseByInstructorSearch.FunctionCode')
 
     await waitFor(() => {
       expect(screen.getByLabelText("Start Quarter").value).toBe("20211");
@@ -203,7 +203,8 @@ describe("CourseByInstructorSearchForm tests", () => {
     const expectedFields = {
       startQuarter: "20211",
       endQuarter: "20214",
-      instructor: "CONRAD P T"
+      instructor: "CONRAD P T",
+      FunctionCode: ""
     };
 
     const selectStartQuarter = screen.getByLabelText("Start Quarter");
@@ -234,6 +235,8 @@ describe("CourseByInstructorSearchForm tests", () => {
     const selectCheckbox = screen.getByTestId("CourseByInstructorSearchForm-checkbox");
     userEvent.click(selectCheckbox);
     expect(selectCheckbox.checked).toBe(true);
+    userEvent.click(selectCheckbox);
+    expect(selectCheckbox.checked).toBe(false);
   });
 
   test("when I click submit when JSON is EMPTY, setCourse is not called!", async () => {
@@ -256,6 +259,8 @@ describe("CourseByInstructorSearchForm tests", () => {
     userEvent.selectOptions(selectEndQuarter, "20204");
     const selectInstructor = screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')");
     userEvent.type(selectInstructor, "CONRAD P T");
+    const selectCheckbox = screen.getByTestId("CourseByInstructorSearchForm-checkbox");
+    userEvent.click(selectCheckbox);
     const submitButton = screen.getByText("Submit");
     userEvent.click(submitButton);
   });
