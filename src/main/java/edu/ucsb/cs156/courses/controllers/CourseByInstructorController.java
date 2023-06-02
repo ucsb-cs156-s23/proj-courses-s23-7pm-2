@@ -25,7 +25,7 @@ public class CourseByInstructorController {
 
 	private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);
 
-    private ObjectMapper mapper = new ObjectMapper();
+	private ObjectMapper mapper = new ObjectMapper();
 
 	@Autowired
 	ConvertedSectionCollection convertedSectionCollection;
@@ -35,12 +35,14 @@ public class CourseByInstructorController {
 	public ResponseEntity<String> search(
 			@ApiParam(name = "startQtr", type = "String", value = "Start quarter in YYYYQ format", example = "20221", required = true) @RequestParam String startQtr,
 			@ApiParam(name = "endQtr", type = "String", value = "End quarter in YYYYQ format", example = "20222", required = true) @RequestParam String endQtr,
-			@ApiParam(name = "instructor", type = "String", value = "Instructor name", example = "CONRAD P T", required = true) @RequestParam String instructor
-		)throws JsonProcessingException {
+			@ApiParam(name = "instructor", type = "String", value = "Instructor name", example = "CONRAD P T", required = true) @RequestParam String instructor,
+			@ApiParam(name = "functionCode", type = "String", value = "Function code regex", example = "Teaching and in charge", required = true) @RequestParam String functionCode)
+			throws JsonProcessingException {
 		List<ConvertedSection> courseResults = convertedSectionCollection.findByQuarterRangeAndInstructor(
 				startQtr,
 				endQtr,
-				instructor);
+				instructor,
+				functionCode);
 		String body = mapper.writeValueAsString(courseResults);
 		return ResponseEntity.ok().body(body);
 	}
