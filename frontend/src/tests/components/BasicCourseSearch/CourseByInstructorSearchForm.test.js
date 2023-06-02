@@ -224,6 +224,46 @@ describe("CourseByInstructorSearchForm tests", () => {
     );
   });
 
+  test("when I click submit, the right stuff happens", async () => {
+    const sampleReturnValue = { sampleKey: "sampleValue" };
+    const fetchJSONSpy = jest.fn();
+
+    fetchJSONSpy.mockResolvedValue(sampleReturnValue);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <CourseByInstructorSearchForm fetchJSON={fetchJSONSpy} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    const expectedFields = {
+      startQuarter: "20211",
+      endQuarter: "20214",
+      instructor: "CONRAD P T",
+      FunctionCode: "Teaching and in charge"
+    };
+
+    const selectStartQuarter = screen.getByLabelText("Start Quarter");
+    userEvent.selectOptions(selectStartQuarter, "20211");
+    const selectEndQuarter = screen.getByLabelText("End Quarter");
+    userEvent.selectOptions(selectEndQuarter, "20214");
+    const selectInstructor = screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')");
+    userEvent.type(selectInstructor, "CONRAD P T");
+    const selectCheckbox = screen.getByTestId("CourseByInstructorSearchForm-checkbox");
+    userEvent.click(selectCheckbox);
+    const submitButton = screen.getByText("Submit");
+    userEvent.click(submitButton);
+
+    await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(1));
+
+    expect(fetchJSONSpy).toHaveBeenCalledWith(
+      expect.any(Object),
+      expectedFields
+    );
+  });
+
   test("when I select the checkbox, the state for checkbox changes", () => {
     render(
       <QueryClientProvider client={queryClient}>

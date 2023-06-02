@@ -47,7 +47,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
 
   const handleCheckboxOnChange = () => {
     setCheckbox(!checkbox);
-    checkbox ? localStorage.setItem("CourseByInstructorSearch.FunctionCode", "Teaching and in charge") : localStorage.setItem("CourseByInstructorSearch.FunctionCode", "");
+    FunctionCode !== "Teaching and in charge" ? localStorage.setItem("CourseByInstructorSearch.FunctionCode", "Teaching and in charge") : localStorage.setItem("CourseByInstructorSearch.FunctionCode", "");
   };
 
   const testid = "CourseByInstructorSearchForm";
