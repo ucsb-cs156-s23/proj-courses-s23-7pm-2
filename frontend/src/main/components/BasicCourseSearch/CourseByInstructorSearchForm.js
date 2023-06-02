@@ -46,7 +46,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
 
   const handleCheckboxOnChange = (event) => {
     setCheckbox(event.target.checked);
-    localStorage.setItem("CourseByInstructorSearch.Checkbox", event.target.checked);
+    localStorage.setItem("CourseByInstructorSearch.Checkbox", event.target.checked.toString());
   };
 
   const testid = "CourseByInstructorSearchForm";
