@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, Container, Row, Col, FormCheck, FormLabel } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, FormCheck } from "react-bootstrap";
 import { quarterRange } from "main/utils/quarterUtilities";
 import { useSystemInfo } from "main/utils/systemInfo";
 import SingleQuarterDropdown from "../Quarters/SingleQuarterDropdown";
@@ -27,6 +27,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
   const localStorageCheckbox = localStorage.getItem("CourseByInstructorSearch.Checkbox");
 
   const initialInstructor = localStorageInstructor || "";
+  console.log(initialCheckbox);
   const initialCheckbox = localStorageCheckbox || false;
 
   const [startQuarter, setStartQuarter] = useState(quarters[0].yyyyq);
@@ -45,8 +46,8 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
   };
 
   const handleCheckboxOnChange = (event) => {
-    setCheckbox(event.target.value);
-    localStorage.setItem("CourseByInstructorSearch.Checkbox", event.target.value);
+    setCheckbox(event.target.checked);
+    localStorage.setItem("CourseByInstructorSearch.Checkbox", event.target.checked);
   };
 
   const testid = "CourseByInstructorSearchForm";
@@ -77,10 +78,9 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
             <Form.Label>Instructor (Try searching 'Conrad' or 'CONRAD P T')</Form.Label>
             <Form.Control onChange={handleInstructorOnChange} defaultValue={instructor} />
           </Form.Group>
-          <FormCheck controlId="CourseByInstructorSearch.Checkbox">
-            <FormLabel>Lectures Only</FormLabel>
-            <Form.Control onChange={handleCheckboxOnChange} defaultValue={checkbox} />
-          </FormCheck>
+          <Form.Group controlId="CourseByInstructorSearch.Checkbox">
+            <FormCheck type="checkbox" label="Lectures Only" onChange={handleCheckboxOnChange} checked={checkbox}></FormCheck>
+          </Form.Group>
         </Row>
         <Row data-testid={`${testid}-data-row`} style={{ paddingTop: 10, paddingBottom: 10 }}>
           <Col md="auto">
