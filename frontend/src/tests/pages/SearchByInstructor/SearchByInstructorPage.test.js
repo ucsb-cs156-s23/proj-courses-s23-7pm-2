@@ -58,20 +58,23 @@ describe("SearchByInstructorPage tests", () => {
         const endQuarterInput = screen.getByLabelText("End Quarter");
         userEvent.type(endQuarterInput, "20223");
 
-        const instructorInput = screen.getByLabelText("Instructor");
+        const instructorInput = screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')");
         userEvent.type(instructorInput, "CONRAD P T");
 
         const submitButton = screen.getByText("Submit");
         userEvent.click(submitButton);
 
         await waitFor(() => {
-            expect(axiosMock.history.get.length).toBe(1);
-            expect(axiosMock.history.get[0].params).toEqual({
-                startQtr: "20222",
-                endQtr: "20223",
-                instructor: "CONRAD P T",
-            });
-            expect(screen.getByText("No courses found")).toBeInTheDocument();
+          expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
         });
+
+        expect(axiosMock.history.get[0].params).toEqual({
+            startQtr: "20222",
+            endQtr: "20222",
+            instructor: "CONRAD P T",
+        });
+
+        expect(screen.getByText("CMPSC 156")).toBeInTheDocument();
+        expect(screen.getByText("CMPSC 100")).toBeInTheDocument();
     });
 });

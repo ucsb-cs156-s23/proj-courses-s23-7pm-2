@@ -66,7 +66,7 @@ const CourseByInstructorSearchForm = ({ fetchJSON }) => {
             />
           </Col>
           <Form.Group controlId="CourseByInstructorSearch.Instructor">
-            <Form.Label>Instructor (Try searching 'Conrad' or 'CONRAD P T')</Form.Label>
+            <Form.Label>Instructor (Try searching 'MIRZA D' or 'CONRAD P T')</Form.Label>
             <Form.Control onChange={handleInstructorOnChange} defaultValue={instructor} />
           </Form.Group>
         </Row>

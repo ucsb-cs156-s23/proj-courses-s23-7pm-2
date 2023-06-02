@@ -18,6 +18,7 @@ export default function SearchByInstructorPage() {
 
   const onSuccess = (courses) => {
     setCourseJSON(courses);
+    console.log(courses);
   };
 
   const mutation = useBackendMutation(
@@ -30,7 +31,7 @@ export default function SearchByInstructorPage() {
   async function fetchBasicCourseJSON(_event, query) {
     mutation.mutate(query);
   }
-
+  
   return (
     <BasicLayout>
       <div className="pt-2">
