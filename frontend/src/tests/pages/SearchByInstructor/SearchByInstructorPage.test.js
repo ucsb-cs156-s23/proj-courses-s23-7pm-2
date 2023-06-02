@@ -18,62 +18,67 @@ jest.mock('react-toastify', () => {
 });
 
 describe("SearchByInstructorPage tests", () => {
-    const axiosMock = new AxiosMockAdapter(axios);
+  const axiosMock = new AxiosMockAdapter(axios);
 
-    beforeEach(() => {
-        axiosMock.resetHistory();
-        axiosMock
-            .onGet("/api/currentUser")
-            .reply(200, { user: "mockUser" });
+  beforeEach(() => {
+      axiosMock.resetHistory();
+      axiosMock
+          .onGet("/api/currentUser")
+          .reply(200, { user: "mockUser" });
+  });
+
+  const queryClient = new QueryClient();
+
+  test("renders without crashing", () => {
+      render(
+          <QueryClientProvider client={queryClient}>
+              <MemoryRouter>
+                  <SearchByInstructorPage />
+              </MemoryRouter>
+          </QueryClientProvider>
+      );
+  });
+
+  test("calls course by instructor search API correctly", async () => {
+    axiosMock
+        .onGet("/api/public/coursebyinstructor/search")
+        .reply(200, { courses: [] });
+
+    render(
+        <QueryClientProvider client={queryClient}>
+            <MemoryRouter>
+                <SearchByInstructorPage />
+            </MemoryRouter>
+        </QueryClientProvider>
+    );
+
+    const startQuarterInput = screen.getByLabelText("Start Quarter");
+    userEvent.selectOptions(startQuarterInput, "20222");
+
+    const endQuarterInput = screen.getByLabelText("End Quarter");
+    userEvent.selectOptions(endQuarterInput, "20222");
+
+    const instructorInput = screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')");
+    userEvent.type(instructorInput, "CONRAD P T");
+
+    const submitButton = screen.getByText("Submit");
+    expect(submitButton).toBeInTheDocument();
+    userEvent.click(submitButton);
+
+
+    axiosMock.resetHistory();
+
+    await waitFor(() => {
+      expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
     });
 
-    const queryClient = new QueryClient();
-
-    test("renders without crashing", () => {
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <SearchByInstructorPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+    expect(axiosMock.history.get[0].params).toEqual({
+      startQtr: "20222",
+      endQtr: "20222",
+      instructor: "CONRAD P T",
     });
 
-    test("calls course by instructor search API correctly", async () => {
-        axiosMock
-            .onGet("/api/public/coursebyinstructor/search")
-            .reply(200, { courses: [] });
-
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <SearchByInstructorPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        const startQuarterInput = screen.getByLabelText("Start Quarter");
-        userEvent.type(startQuarterInput, "20222");
-
-        const endQuarterInput = screen.getByLabelText("End Quarter");
-        userEvent.type(endQuarterInput, "20223");
-
-        const instructorInput = screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')");
-        userEvent.type(instructorInput, "CONRAD P T");
-
-        const submitButton = screen.getByText("Submit");
-        userEvent.click(submitButton);
-
-        await waitFor(() => {
-          expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
-        });
-
-        expect(axiosMock.history.get[0].params).toEqual({
-            startQtr: "20222",
-            endQtr: "20222",
-            instructor: "CONRAD P T",
-        });
-
-        expect(screen.getByText("CMPSC 156")).toBeInTheDocument();
-    });
+    expect(screen.getByText("CMPSC 156")).toBeInTheDocument();
+    
+  });
 });
