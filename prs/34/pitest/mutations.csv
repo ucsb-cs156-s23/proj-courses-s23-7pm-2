@@ -296,4 +296,3 @@ JobService.java,edu.ucsb.cs156.courses.services.jobs.JobService,org.pitest.mutat
 JobService.java,edu.ucsb.cs156.courses.services.jobs.JobService,org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator,runJobAsync,43,TIMED_OUT,none
 JobService.java,edu.ucsb.cs156.courses.services.jobs.JobService,org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator,runJobAsync,44,TIMED_OUT,none
 JobService.java,edu.ucsb.cs156.courses.services.jobs.JobService,org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator,runJobAsync,48,TIMED_OUT,none
-InstructorOverTimeController.java,edu.ucsb.cs156.courses.controllers.InstructorOverTimeController,org.pitest.mutationtest.engine.gregor.mutators.returns.NullReturnValsMutator,search,68,NO_COVERAGE,none
