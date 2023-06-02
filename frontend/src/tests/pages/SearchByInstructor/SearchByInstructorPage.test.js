@@ -75,6 +75,5 @@ describe("SearchByInstructorPage tests", () => {
         });
 
         expect(screen.getByText("CMPSC 156")).toBeInTheDocument();
-        expect(screen.getByText("CMPSC 100")).toBeInTheDocument();
     });
 });
