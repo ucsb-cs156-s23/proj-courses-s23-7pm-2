@@ -6,7 +6,7 @@ import AxiosMockAdapter from "axios-mock-adapter";
 import userEvent from "@testing-library/user-event";
 import { threeSections } from "fixtures/sectionFixtures";
 
-import CourseByInstructor from "main/pages/CourseByInstructor/CourseByInstructor";
+import CourseByInstructor from "main/pages/CourseByInstructor/CourseByInstructorIndexPage";
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -59,7 +59,7 @@ describe("CourseByInstructor tests", () => {
     const endQuarterInput = screen.getByLabelText("End Quarter");
     userEvent.selectOptions(endQuarterInput, "20222");
 
-    const instructorInput = screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')");
+    const instructorInput = screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')");
     userEvent.type(instructorInput, "CONRAD P T");
 
     const submitButton = screen.getByText("Submit");

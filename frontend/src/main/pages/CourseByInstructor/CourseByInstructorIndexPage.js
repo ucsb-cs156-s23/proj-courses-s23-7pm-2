@@ -4,7 +4,7 @@ import CourseByInstructorSearchForm from "main/components/BasicCourseSearch/Cour
 import SectionsOverTimeTable from "main/components/Sections/SectionsOverTimeTable";
 import { useBackendMutation } from "main/utils/useBackend";
 
-export default function CourseByInstructor() {
+export default function CourseByInstructorIndexPage() {
   const [courseJSON, setCourseJSON] = useState([]);
 
   const objectToAxiosParams = (query) => ({

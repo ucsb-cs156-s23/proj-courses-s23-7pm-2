@@ -85,7 +85,7 @@ describe("CourseByInstructorSearchForm tests", () => {
       expect(screen.getByLabelText("Start Quarter").value).toBe("20202");
     });
     expect(screen.getByLabelText("End Quarter").value).toBe("20203");
-    expect(screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')").value).toBe("CONRAD P T");
+    expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("CONRAD P T");
 
 
     const submitRow = screen.getByText("Submit").parentElement.parentElement;
@@ -117,7 +117,7 @@ describe("CourseByInstructorSearchForm tests", () => {
     );
 
     expect(screen.getByLabelText("End Quarter").value).toBe("20201");
-    expect(screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')").value).toBe("");
+    expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("");
   });
 
   test("when I select a start quarter, the state for start quarter changes", async () => {
@@ -145,7 +145,7 @@ describe("CourseByInstructorSearchForm tests", () => {
     expect(screen.getByTestId("CourseByInstructorSearch.StartQuarter-option-20202")).toBeInTheDocument();
 
     expect(screen.getByLabelText("End Quarter").value).toBe("20211");
-    expect(screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')").value).toBe("");
+    expect(screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')").value).toBe("");
 
     const selectStartQuarter = screen.getByLabelText("Start Quarter");
     userEvent.selectOptions(selectStartQuarter, "20202");
@@ -174,7 +174,7 @@ describe("CourseByInstructorSearchForm tests", () => {
         </MemoryRouter>
       </QueryClientProvider>
     );
-    const selectInstructor = screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')");
+    const selectInstructor = screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')");
     userEvent.type(selectInstructor, "CONRAD P T");
     expect(selectInstructor.value).toBe("CONRAD P T");
     expect(localStorage.setItem).toBeCalledWith('CourseByInstructorSearch.Instructor', "CONRAD P T")
@@ -204,7 +204,7 @@ describe("CourseByInstructorSearchForm tests", () => {
     userEvent.selectOptions(selectStartQuarter, "20211");
     const selectEndQuarter = screen.getByLabelText("End Quarter");
     userEvent.selectOptions(selectEndQuarter, "20214");
-    const selectInstructor = screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')");
+    const selectInstructor = screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')");
     userEvent.type(selectInstructor, "CONRAD P T");
     const submitButton = screen.getByText("Submit");
     userEvent.click(submitButton);
@@ -235,7 +235,7 @@ describe("CourseByInstructorSearchForm tests", () => {
     userEvent.selectOptions(selectStartQuarter, "20204");
     const selectEndQuarter = screen.getByLabelText("End Quarter");
     userEvent.selectOptions(selectEndQuarter, "20204");
-    const selectInstructor = screen.getByLabelText("Instructor (Try searching 'MIRZA D' or 'CONRAD P T')");
+    const selectInstructor = screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')");
     userEvent.type(selectInstructor, "CONRAD P T");
     const submitButton = screen.getByText("Submit");
     userEvent.click(submitButton);

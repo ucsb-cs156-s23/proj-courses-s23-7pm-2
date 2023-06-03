@@ -22,7 +22,7 @@ import CoursesCreatePage from "main/pages/Courses/PSCourseCreatePage";
 
 import CourseOverTimeIndexPage from "main/pages/CourseOverTime/CourseOverTimeIndexPage";
 
-import SearchByInstructorPage from "main/pages/CourseByInstructor/CourseByInstructor"
+import CourseByInstructorIndexPage from "main/pages/CourseByInstructor/CourseByInstructorIndexPage"
 function App() {
 
   const { data: currentUser } = useCurrentUser();
@@ -56,7 +56,7 @@ function App() {
             </>
           )
         }
-        <Route exact path="/coursebyinstructor/search" element={<SearchByInstructorPage />} />
+        <Route exact path="/coursebyinstructor/search" element={<CourseByInstructorIndexPage />} />
         <Route exact path="/coursedescriptions/search" element={<CourseDescriptionIndexPage />} />
         <Route exact path="/courseovertime/search" element={<CourseOverTimeIndexPage />} />
       </Routes>
