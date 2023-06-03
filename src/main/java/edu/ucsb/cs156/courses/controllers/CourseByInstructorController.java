@@ -23,28 +23,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/api/public/coursebyinstructor")
 public class CourseByInstructorController {
 
-	private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);
+    private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);
 
-	private ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
-	@Autowired
-	ConvertedSectionCollection convertedSectionCollection;
+    @Autowired
+    ConvertedSectionCollection convertedSectionCollection;
 
-	@ApiOperation(value = "Get a list of courses by instructor over time")
-	@GetMapping(value = "/search", produces = "application/json")
-	public ResponseEntity<String> search(
-			@ApiParam(name = "startQtr", type = "String", value = "Start quarter in YYYYQ format", example = "20221", required = true) @RequestParam String startQtr,
-			@ApiParam(name = "endQtr", type = "String", value = "End quarter in YYYYQ format", example = "20222", required = true) @RequestParam String endQtr,
-			@ApiParam(name = "instructor", type = "String", value = "Instructor name", example = "CONRAD P T", required = true) @RequestParam String instructor,
-			@ApiParam(name = "functionCode", type = "String", value = "Function code regex", example = "Teaching and in charge", required = true) @RequestParam String functionCode)
-			throws JsonProcessingException {
-		List<ConvertedSection> courseResults = convertedSectionCollection.findByQuarterRangeAndInstructor(
-				startQtr,
-				endQtr,
-				instructor,
-				functionCode);
-		String body = mapper.writeValueAsString(courseResults);
-		return ResponseEntity.ok().body(body);
-	}
+    @ApiOperation(value = "Get a list of courses by instructor over time")
+    @GetMapping(value = "/search", produces = "application/json")
+    public ResponseEntity<String> search(
+            @ApiParam(name = "startQtr", type = "String", value = "Start quarter in YYYYQ format", example = "20221", required = true) @RequestParam String startQtr,
+            @ApiParam(name = "endQtr", type = "String", value = "End quarter in YYYYQ format", example = "20222", required = true) @RequestParam String endQtr,
+            @ApiParam(name = "instructor", type = "String", value = "Instructor name", example = "CONRAD P T", required = true) @RequestParam String instructor,
+            @ApiParam(name = "functionCode", type = "String", value = "Function code regex", example = "true", required = true) @RequestParam String functionCode)
+            throws JsonProcessingException {
+        List<ConvertedSection> courseResults;
+        if (Boolean.parseBoolean(functionCode)) {
+            courseResults = convertedSectionCollection.findByQuarterRangeAndInstructorLectureOnly(
+                    startQtr,
+                    endQtr,
+                    instructor);
+        } else {
+            courseResults = convertedSectionCollection.findByQuarterRangeAndInstructor(
+                    startQtr,
+                    endQtr,
+                    instructor);
+        }
+
+        String body = mapper.writeValueAsString(courseResults);
+        return ResponseEntity.ok().body(body);
+    }
 
 }
