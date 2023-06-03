@@ -23,29 +23,37 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping(&quot;/api/public/coursebyinstructor&quot;)
 <span class="fc" id="L24">public class CourseByInstructorController {</span>
 
-<span class="fc" id="L26">	private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);</span>
+<span class="fc" id="L26">    private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);</span>
 
-<span class="fc" id="L28">	private ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L28">    private ObjectMapper mapper = new ObjectMapper();</span>
 
-	@Autowired
-	ConvertedSectionCollection convertedSectionCollection;
+    @Autowired
+    ConvertedSectionCollection convertedSectionCollection;
 
-	@ApiOperation(value = &quot;Get a list of courses by instructor over time&quot;)
-	@GetMapping(value = &quot;/search&quot;, produces = &quot;application/json&quot;)
-	public ResponseEntity&lt;String&gt; search(
-			@ApiParam(name = &quot;startQtr&quot;, type = &quot;String&quot;, value = &quot;Start quarter in YYYYQ format&quot;, example = &quot;20221&quot;, required = true) @RequestParam String startQtr,
-			@ApiParam(name = &quot;endQtr&quot;, type = &quot;String&quot;, value = &quot;End quarter in YYYYQ format&quot;, example = &quot;20222&quot;, required = true) @RequestParam String endQtr,
-			@ApiParam(name = &quot;instructor&quot;, type = &quot;String&quot;, value = &quot;Instructor name&quot;, example = &quot;CONRAD P T&quot;, required = true) @RequestParam String instructor,
-			@ApiParam(name = &quot;functionCode&quot;, type = &quot;String&quot;, value = &quot;Function code regex&quot;, example = &quot;Teaching and in charge&quot;, required = true) @RequestParam String functionCode)
-			throws JsonProcessingException {
-<span class="fc" id="L41">		List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndInstructor(</span>
-				startQtr,
-				endQtr,
-				instructor,
-				functionCode);
-<span class="fc" id="L46">		String body = mapper.writeValueAsString(courseResults);</span>
-<span class="fc" id="L47">		return ResponseEntity.ok().body(body);</span>
-	}
+    @ApiOperation(value = &quot;Get a list of courses by instructor over time&quot;)
+    @GetMapping(value = &quot;/search&quot;, produces = &quot;application/json&quot;)
+    public ResponseEntity&lt;String&gt; search(
+            @ApiParam(name = &quot;startQtr&quot;, type = &quot;String&quot;, value = &quot;Start quarter in YYYYQ format&quot;, example = &quot;20221&quot;, required = true) @RequestParam String startQtr,
+            @ApiParam(name = &quot;endQtr&quot;, type = &quot;String&quot;, value = &quot;End quarter in YYYYQ format&quot;, example = &quot;20222&quot;, required = true) @RequestParam String endQtr,
+            @ApiParam(name = &quot;instructor&quot;, type = &quot;String&quot;, value = &quot;Instructor name&quot;, example = &quot;CONRAD P T&quot;, required = true) @RequestParam String instructor,
+            @ApiParam(name = &quot;functionCode&quot;, type = &quot;String&quot;, value = &quot;Function code regex&quot;, example = &quot;true&quot;, required = true) @RequestParam String functionCode)
+            throws JsonProcessingException {
+        List&lt;ConvertedSection&gt; courseResults;
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (Boolean.parseBoolean(functionCode)) {</span>
+<span class="fc" id="L43">            courseResults = convertedSectionCollection.findByQuarterRangeAndInstructorLectureOnly(</span>
+                    startQtr,
+                    endQtr,
+                    instructor);
+        } else {
+<span class="fc" id="L48">            courseResults = convertedSectionCollection.findByQuarterRangeAndInstructor(</span>
+                    startQtr,
+                    endQtr,
+                    instructor);
+        }
+
+<span class="fc" id="L54">        String body = mapper.writeValueAsString(courseResults);</span>
+<span class="fc" id="L55">        return ResponseEntity.ok().body(body);</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
