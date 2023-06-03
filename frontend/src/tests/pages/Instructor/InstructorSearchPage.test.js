@@ -1,13 +1,10 @@
-// USELESS PAGE PLACEHOLDER
-
-
 import { render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
-import CourseOverTimeIndexPage from "main/pages/CourseOverTime/CourseOverTimeIndexPage";
+import InstructorSearchPage from "main/pages/Instructor/InstructorSearchPage";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { threeSections } from "fixtures/sectionFixtures";
@@ -25,15 +22,13 @@ jest.mock('react-toastify', () => {
     };
 });
 
-describe("CourseOverTimeIndexPage tests", () => {
-
-
+describe("InstructorSearchPage tests", () => {
     const queryClient = new QueryClient();
     test("renders without crashing", () => {
         render(
         <QueryClientProvider client={queryClient}>
             <MemoryRouter>
-                <CourseOverTimeIndexPage />
+                <InstructorSearchPage />
             </MemoryRouter>
         </QueryClientProvider>
         );
