@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import InstructorSearchPage from "main/pages/Instructor/InstructorSearchPage";
+import CourseInstructorIndexPage from "main/pages/CourseByInstructor/CourseByInstructorIndexPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -29,7 +29,7 @@ describe("InstructorSearchPage tests", () => {
         render(
         <QueryClientProvider client={queryClient}>
             <MemoryRouter>
-                <InstructorSearchPage />
+                <CourseInstructorIndexPage />
             </MemoryRouter>
         </QueryClientProvider>
         );

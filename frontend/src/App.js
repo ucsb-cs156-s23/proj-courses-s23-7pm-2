@@ -23,7 +23,7 @@ import CoursesCreatePage from "main/pages/Courses/PSCourseCreatePage";
 import CourseOverTimeIndexPage from "main/pages/CourseOverTime/CourseOverTimeIndexPage";
 
 // PLACEHOLDER FOR PAGE
-import InstructorSearchPage from "main/pages/Instructor/InstructorSearchPage";
+import CourseInstructorIndexPage from "main/pages/CourseByInstructor/CourseByInstructorIndexPage";
 
 function App() {
 
@@ -61,7 +61,7 @@ function App() {
         <Route exact path="/courseovertime/search" element={<CourseOverTimeIndexPage />} />
 
         {/* PLACE HOLDER FOR PAGE */}
-        <Route exact path="/instructor/search" element={<InstructorSearchPage/>} />
+        <Route exact path="/instructor/search" element={<CourseInstructorIndexPage/>} />
 
       </Routes>
     </BrowserRouter>
