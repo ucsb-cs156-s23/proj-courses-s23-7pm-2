@@ -1,7 +1,7 @@
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
-export default function CourseOverTimeIndexPage() {
+export default function CourseByInstructorIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">

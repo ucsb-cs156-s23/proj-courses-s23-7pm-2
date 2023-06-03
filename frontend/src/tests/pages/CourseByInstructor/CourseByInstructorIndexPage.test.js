@@ -3,12 +3,11 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import CourseInstructorIndexPage from "main/pages/CourseByInstructor/CourseByInstructorIndexPage";
+import CourseByInstructorIndexPage from "main/pages/CourseByInstructor/CourseByInstructorIndexPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
-//
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
     const originalModule = jest.requireActual('react-toastify');
@@ -29,7 +28,7 @@ describe("InstructorSearchPage tests", () => {
         render(
         <QueryClientProvider client={queryClient}>
             <MemoryRouter>
-                <CourseInstructorIndexPage />
+                <CourseByInstructorIndexPage />
             </MemoryRouter>
         </QueryClientProvider>
         );
