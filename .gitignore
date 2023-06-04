@@ -4,12 +4,14 @@
 # Stryker reports
 
 frontend/.stryker-tmp
+/.stryker-tmp
 frontend/reports
 frontend/strykerTmp
 
 # Don't check in a built storybook #
 
 frontend/storybook-static
+.history
 
 # If a package-lock.json shows up in top level dir, don't store it in github
 # Only keep the one under frontend/

@@ -220,6 +220,5 @@ describe("AppNavbar tests", () => {
         expect(await screen.findByTestId("appnavbar-course-over-time-search")).toBeInTheDocument();
         expect(await screen.findByTestId("appnavbar-instructor-search")).toBeInTheDocument();
     });
-
     
 });
