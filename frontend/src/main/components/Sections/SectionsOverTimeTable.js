@@ -24,6 +24,9 @@ export default function SectionsOverTimeTable({ sections }) {
             disableGroupBy: true,
             id: 'quarter',
 
+            aggregate: getFirstVal,
+            Aggregated: ({ cell: { value } }) => `${value}`,
+
             Cell: ({ cell: { value } }) => value
 
         },
