@@ -1,8 +1,8 @@
 import { useState } from "react";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import CourseByInstructorSearchForm from "main/components/BasicCourseSearch/CourseByInstructorSearchForm";
-import SectionsOverTimeTable from "main/components/Sections/SectionsOverTimeTable";
 import { useBackendMutation } from "main/utils/useBackend";
+import SectionsTable from "main/components/Sections/SectionsTable";
 
 export default function CourseByInstructorIndexPage() {
   const [courseJSON, setCourseJSON] = useState([]);
@@ -36,7 +36,7 @@ export default function CourseByInstructorIndexPage() {
       <div className="pt-2">
         <h5>Welcome to the UCSB Courses Instructor Search!</h5>
         <CourseByInstructorSearchForm fetchJSON={fetchBasicCourseJSON} />
-        <SectionsOverTimeTable sections={courseJSON} />
+        <SectionsTable sections={courseJSON} />
       </div>
     </BasicLayout>
   );
