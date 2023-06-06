@@ -73,22 +73,16 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             </Nav>
 
             <Nav className="mr-auto">
-              <NavDropdown title="Course Descriptions" id="appnavbar-course-descriptions-dropdown" data-testid="appnavbar-course-descriptions-dropdown" >
-                <NavDropdown.Item href="/coursedescriptions/search" data-testid="appnavbar-course-descriptions-search">Search</NavDropdown.Item>
+            {
+              <NavDropdown title="All Searches" id="appnavbar-search-dropdown" data-testid="appnavbar-search-dropdown">
+                <NavDropdown.Item href="/courseovertime/search" data-testid="appnavbar-course-over-time-search">Search by Course History</NavDropdown.Item>
+                <NavDropdown.Item href="/coursebyinstructor/search" data-testid="appnavbar-instructor-search">Search by Instructor</NavDropdown.Item>
+                <NavDropdown.Item href="/coursedescriptions/search" data-testid="appnavbar-course-descriptions-search">Search by Course Description</NavDropdown.Item>
               </NavDropdown>
+            }
             </Nav>
 
-            <Nav className="mr-auto">
-              <NavDropdown title="Course History" id="appnavbar-course-over-time-dropdown" data-testid="appnavbar-course-over-time-dropdown" >
-                <NavDropdown.Item href="/courseovertime/search" data-testid="appnavbar-course-over-time-search">Search</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-
-            <Nav className="mr-auto">
-              <NavDropdown title="Instructor" id="appnavbar-instructor-dropdown" data-testid="appnavbar-instructor-dropdown" >
-                <NavDropdown.Item href="/coursebyinstructor/search" data-testid="appnavbar-instructor-search">Search</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
+            
             <Nav className="mr-auto">
               { 
                 hasRole(currentUser, "ROLE_ADMIN") && (
