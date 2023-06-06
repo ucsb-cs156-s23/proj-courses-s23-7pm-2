@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">65% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>13/20</span>
             </div>
         
             
@@ -145,17 +145,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">219x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">120x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,13 +163,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">306x</span>
+<span class="cline-any cline-yes">108x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,7 +218,7 @@ import { Table } from "react-bootstrap";
 export default function SectionsOverTimeTableBase({ columns, data, testid = "testid"}) {
   
   // Stryker disable next-line ObjectLiteral
-  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({initialState: {groupBy: ["quarter"], hiddenColumns: ["isSection"]}, columns, data }, useGroupBy, useExpanded)
+  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({initialState: {groupBy: ["courseID"], hiddenColumns: ["isSection"]}, columns, data }, useGroupBy, useExpanded)
 &nbsp;
   return (
     &lt;Table {...getTableProps()} striped bordered hover &gt;
@@ -241,7 +241,7 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
           prepareRow(row)
           return (
             &lt;&gt;
-            {row.cells[0].isGrouped || (!row.cells[0].isGrouped &amp;&amp; row.allCells[3].value) ? 
+            {row.cells[0].isGrouped || (<span class="branch-1 cbranch-no" title="branch not covered" >!row.cells[0].isGrouped </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >row.allCells[3].value)</span> ? 
             &lt;tr {...row.getRowProps()}&gt;
               {row.cells.map((cell, _index) =&gt; {
                 return (
@@ -249,7 +249,7 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
                     {...cell.getCellProps()}
                     data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}`}
                     // Stryker disable next-line ObjectLiteral
-                    style={{background: cell.isGrouped ? "#e5fcf4" : cell.isAggregated ? "#e5fcf4" : "#effcf8", fontWeight: cell.isGrouped ? "bold" : cell.isAggregated ? "bold" : "normal"}}
+                    style={{background: cell.isGrouped ? "#e5fcf4" : cell.isAggregated ? "#e5fcf4" : <span class="branch-1 cbranch-no" title="branch not covered" >"#effcf8",</span> fontWeight: cell.isGrouped ? "bold" : cell.isAggregated ? "bold" : <span class="branch-1 cbranch-no" title="branch not covered" >"normal"}</span>}
                     &gt;
                     
                     {cell.isGrouped ? (
@@ -257,7 +257,7 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
                     &lt;span {...row.getToggleRowExpandedProps()}
                     data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}-expand-symbols`}
                     &gt;
-                    {row.isExpanded ? "➖ " : "➕ "}
+                    {row.isExpanded ? <span class="branch-0 cbranch-no" title="branch not covered" >"➖ " </span>: "➕ "}
                     &lt;/span&gt;{" "}
                     {cell.render("Cell")} 
                     &lt;/&gt;
@@ -265,7 +265,7 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
                     : cell.isAggregated ? (
                       cell.render("Aggregated")
                     )
-                    : cell.render('Cell')
+                    : <span class="branch-1 cbranch-no" title="branch not covered" >cell.render('Cell')</span>
                     }
                     &lt;&gt;
                     
@@ -275,7 +275,7 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
               })}
 &nbsp;
             &lt;/tr&gt;
-            : null}
+            : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
             &lt;/&gt;
           )
         })}
@@ -289,7 +289,7 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 05 2023 23:16:45 GMT-0700 (Pacific Daylight Time)
+                at Mon Jun 05 2023 23:25:27 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../prettify.js"></script>
         <script>
