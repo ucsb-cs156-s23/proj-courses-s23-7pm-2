@@ -22,8 +22,6 @@ import CoursesCreatePage from "main/pages/Courses/PSCourseCreatePage";
 
 import CourseOverTimeIndexPage from "main/pages/CourseOverTime/CourseOverTimeIndexPage";
 import CourseByInstructorIndexPage from "main/pages/CourseByInstructor/CourseByInstructorIndexPage";
-
-import CourseByInstructorIndexPage from "main/pages/CourseByInstructor/CourseByInstructorIndexPage"
 function App() {
 
   const { data: currentUser } = useCurrentUser();
