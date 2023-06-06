@@ -31,6 +31,7 @@ export default function SectionsOverTimeTable({ sections }) {
             Header: 'Course ID',
             accessor: 'courseInfo.courseId',
             disableGroupBy: true,
+            id: 'courseID',
 
             aggregate: getCourseId,
             Aggregated: ({ cell: { value } }) => `${value}`,

@@ -7,7 +7,7 @@ import { Table } from "react-bootstrap";
 export default function SectionsOverTimeTableBase({ columns, data, testid = "testid"}) {
   
   // Stryker disable next-line ObjectLiteral
-  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({initialState: {groupBy: ["quarter"], hiddenColumns: ["isSection"]}, columns, data }, useGroupBy, useExpanded)
+  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({initialState: {groupBy: ["courseID"], hiddenColumns: ["isSection"]}, columns, data }, useGroupBy, useExpanded)
 
   return (
     <Table {...getTableProps()} striped bordered hover >
