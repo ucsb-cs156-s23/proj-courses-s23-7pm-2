@@ -34,7 +34,7 @@ export default function CourseByInstructorIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h5>Welcome to the UCSB Courses Description Search!</h5>
+        <h5>Welcome to the UCSB Courses Instructor Search!</h5>
         <CourseByInstructorSearchForm fetchJSON={fetchBasicCourseJSON} />
         <SectionsOverTimeTable sections={courseJSON} />
       </div>
