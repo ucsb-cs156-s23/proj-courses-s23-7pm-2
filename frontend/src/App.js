@@ -58,7 +58,6 @@ function App() {
         <Route exact path="/coursebyinstructor/search" element={<CourseByInstructorIndexPage />} />
         <Route exact path="/coursedescriptions/search" element={<CourseDescriptionIndexPage />} />
         <Route exact path="/courseovertime/search" element={<CourseOverTimeIndexPage />} />
-        <Route exact path="/instructor/search" element={<CourseByInstructorIndexPage/>} />
       </Routes>
     </BrowserRouter>
   );
