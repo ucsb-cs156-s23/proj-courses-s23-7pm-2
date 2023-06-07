@@ -53,7 +53,7 @@ public class CourseByInstructorControllerTests {
         String url = String.format(urlTemplate, "20222", "20212", "CONRAD P T", "false");
 
         // mock
-        when(convertedSectionCollection.findByQuarterRangeAndInstructor(any(String.class), any(String.class), any(String.class)))
+        when(convertedSectionCollection.findByQuarterRangeAndInstructor(any(String.class), any(String.class), any(String.class), any(String.class)))
             .thenReturn(expectedResult);
 
         // act
