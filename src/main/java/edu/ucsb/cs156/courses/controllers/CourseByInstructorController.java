@@ -6,6 +6,7 @@ import edu.ucsb.cs156.courses.collections.ConvertedSectionCollection;
 import edu.ucsb.cs156.courses.documents.ConvertedSection;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/public/coursebyinstructor")
 public class CourseByInstructorController {
-
-	private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -53,6 +53,7 @@ public class CourseByInstructorController {
 				"^.*");
 		}
 		String body = mapper.writeValueAsString(courseResults);
+		log.info("body={}", body);
 		return ResponseEntity.ok().body(body);
 	}
 }

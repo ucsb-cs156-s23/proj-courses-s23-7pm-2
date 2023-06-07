@@ -1,13 +1,12 @@
-import { render} from "@testing-library/react";
+
+import { render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+import userEvent from "@testing-library/user-event";
+import { threeSections } from "fixtures/sectionFixtures";
 import CourseByInstructorIndexPage from "main/pages/CourseByInstructor/CourseByInstructorIndexPage";
-
-import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
-import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
     const originalModule = jest.requireActual('react-toastify');
@@ -18,19 +17,69 @@ jest.mock('react-toastify', () => {
     };
 });
 
-describe("InstructorSearchPage tests", () => {
-    const queryClient = new QueryClient();
-    const axiosMock = new AxiosMockAdapter(axios);
-    
-    axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-    axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
-    test("renders without crashing", () => {
-        render(
+describe("CourseByInstructorIndexPage tests", () => {
+  const axiosMock = new AxiosMockAdapter(axios);
+
+  beforeEach(() => {
+      axiosMock.resetHistory();
+      axiosMock
+          .onGet("/api/currentUser")
+          .reply(200, { user: "mockUser" });
+  });
+
+  const queryClient = new QueryClient();
+
+  test("renders without crashing", () => {
+      render(
+          <QueryClientProvider client={queryClient}>
+              <MemoryRouter>
+                  <CourseByInstructorIndexPage />
+              </MemoryRouter>
+          </QueryClientProvider>
+      );
+  });
+
+  test("calls course by instructor search API correctly", async () => {
+    axiosMock
+        .onGet("/api/public/coursebyinstructor/search")
+        .reply(200, threeSections);
+
+    render(
         <QueryClientProvider client={queryClient}>
             <MemoryRouter>
                 <CourseByInstructorIndexPage />
             </MemoryRouter>
         </QueryClientProvider>
-        );
+    );
+
+    const startQuarterInput = screen.getByLabelText("Start Quarter");
+    userEvent.selectOptions(startQuarterInput, "20222");
+
+    const endQuarterInput = screen.getByLabelText("End Quarter");
+    userEvent.selectOptions(endQuarterInput, "20222");
+
+    const instructorInput = screen.getByLabelText("Instructor (Try searching 'Conrad' or 'CONRAD P T')");
+    userEvent.type(instructorInput, "CONRAD P T");
+
+    const submitButton = screen.getByText("Submit");
+    expect(submitButton).toBeInTheDocument();
+    userEvent.click(submitButton);
+
+    
+    
+
+    axiosMock.resetHistory();
+    
+
+    await waitFor(() => {
+      expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
     });
+
+    expect(axiosMock.history.get[0].params).toEqual({
+      startQtr: "20222",
+      endQtr: "20222",
+      instructor: "CONRAD P T",
+    });    
+    expect(screen.getByText("ECE 1A")).toBeInTheDocument();
+  });
 });

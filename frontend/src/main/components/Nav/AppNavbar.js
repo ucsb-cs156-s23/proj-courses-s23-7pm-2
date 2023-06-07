@@ -76,11 +76,12 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             {
               <NavDropdown title="All Searches" id="appnavbar-search-dropdown" data-testid="appnavbar-search-dropdown">
                 <NavDropdown.Item href="/courseovertime/search" data-testid="appnavbar-course-over-time-search">Search by Course History</NavDropdown.Item>
-                <NavDropdown.Item href="/instructor/search" data-testid="appnavbar-instructor-search">Search by Instructor</NavDropdown.Item>
+                <NavDropdown.Item href="/coursebyinstructor/search" data-testid="appnavbar-instructor-search">Search by Instructor</NavDropdown.Item>
                 <NavDropdown.Item href="/coursedescriptions/search" data-testid="appnavbar-course-descriptions-search">Search by Course Description</NavDropdown.Item>
               </NavDropdown>
             }
             </Nav>
+
             
             <Nav className="mr-auto">
               { 
