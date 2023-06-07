@@ -14,22 +14,17 @@ public interface ConvertedSectionCollection extends MongoRepository<ConvertedSec
         @Query("{'courseInfo.quarter': ?0, 'section.enrollCode': ?1}")
         Optional<ConvertedSection> findOneByQuarterAndEnrollCode(String quarter, String enrollCode);
 
-        @Query("{'courseInfo.quarter': {$gte: ?0, $lte: ?1}, 'courseInfo.courseId': { $regex: ?2 }}")
-        List<ConvertedSection> findByQuarterRangeAndCourseId(
-                        String startQuarter,
-                        String endQuarter,
-                        String courseId);
+    @Query("{'courseInfo.quarter': {$gte: ?0, $lte: ?1}, 'courseInfo.courseId': { $regex: ?2 }}")
+    List<ConvertedSection> findByQuarterRangeAndCourseId(
+        String startQuarter,
+        String endQuarter,
+        String courseId );
 
-        @Query("{'courseInfo.quarter': {$gte: ?0, $lte: ?1}, 'section.instructors': { '$elemMatch': { 'instructor': { $regex: ?2 }, 'functionCode': 'Teaching and in charge'}}}")
-        List<ConvertedSection> findByQuarterRangeAndInstructorLectureOnly(
-                        String startQuarter,
-                        String endQuarter,
-                        String instructor);
-
-        @Query("{'courseInfo.quarter': {$gte: ?0, $lte: ?1}, 'section.instructors': { '$elemMatch': { 'instructor': { $regex: ?2 }}}}")
-        List<ConvertedSection> findByQuarterRangeAndInstructor(
-                        String startQuarter,
-                        String endQuarter,
-                        String instructor);
-
+    @Query("{'courseInfo.quarter': {$gte: ?0, $lte: ?1}, 'section.instructors': { '$elemMatch': { 'instructor': { $regex: ?2 }, 'functionCode': { $regex: ?3 }}}}")
+    List<ConvertedSection> findByQuarterRangeAndInstructor(
+        String startQuarter,
+        String endQuarter,
+        String instructor,
+        String functionCode );
+    
 }
