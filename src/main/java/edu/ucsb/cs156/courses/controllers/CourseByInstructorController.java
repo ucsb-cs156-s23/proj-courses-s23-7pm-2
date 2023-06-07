@@ -27,8 +27,8 @@ public class CourseByInstructorController {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    @Autowired
-    ConvertedSectionCollection convertedSectionCollection;
+	@Autowired
+	ConvertedSectionCollection convertedSectionCollection;
 
 	@ApiOperation(value = "Get a list of courses by instructor over time")
 	@GetMapping(value = "/search", produces = "application/json")
