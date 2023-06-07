@@ -35,7 +35,6 @@ import java.util.Arrays;
 @Import(SecurityConfig.class)
 @AutoConfigureDataJpa
 public class CourseByInstructorControllerTests {
-
     private final Logger logger = LoggerFactory.getLogger(CourseByInstructorControllerTests.class);
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -134,9 +133,9 @@ public class CourseByInstructorControllerTests {
             .section(section2)
             .build();
 
-        String urlTemplate = "/api/public/coursebyinstructor/search?startQtr=%s&endQtr=%s&instructor=%s";
+        String urlTemplate = "/api/public/coursebyinstructor/search?startQtr=%s&endQtr=%s&instructor=%s&lectureOnly=%s";
     
-        String url = String.format(urlTemplate, "20222", "20222", "CONRAD P T");
+        String url = String.format(urlTemplate, "20222", "20222", "CONRAD P T", "true");
 
         List<ConvertedSection> expectedSecs = new ArrayList<ConvertedSection>();
         expectedSecs.addAll(Arrays.asList(cs1, cs2));
