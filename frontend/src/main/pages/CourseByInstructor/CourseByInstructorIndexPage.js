@@ -13,6 +13,7 @@ export default function CourseByInstructorIndexPage() {
       startQtr: query.startQuarter,
       endQtr: query.endQuarter,
       instructor: query.instructor,
+      lectureOnly: query.checkbox,
     },
   });
 
